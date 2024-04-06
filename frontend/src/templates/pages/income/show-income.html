@@ -1,0 +1,65 @@
+<div class="showIncome">
+
+    <section class="content container">
+        <div class="content-header">
+            <h1 class="m-0">Доходы</h1>
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="col-4 border">
+                <div class="income-card">
+                    <div class="income-name">
+                        Депозиты
+                    </div>
+                    <button type="button" class="btn btn-primary">Редактировать</button>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border">
+                <div class="income-card">
+                    <div class="income-name">
+                        Зарплата
+                    </div>
+                    <button type="button" class="btn btn-primary">Редактировать</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteIncome">Удалить</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="deleteIncome" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    Вы действительно хотите удалить категорию? Связанные доходы будут удалены навсегда.
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Да, удалить</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 border">
+                <div class="income-card">
+                    <div class="income-name">
+                        Сбережения
+                    </div>
+                    <button type="button" class="btn btn-primary">Редактировать</button>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border">
+                <div class="income-card">
+                    <div class="income-name">
+                        Инвестиции
+                    </div>
+                    <button type="button" class="btn btn-primary">Редактировать</button>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border">
+                <a href="#" class="income-card-add align-middle text-center text-secondary">
+                    +
+                </a>
+            </div>
+        </div>
+    </section>
+</div>

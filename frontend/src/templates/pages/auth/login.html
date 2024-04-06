@@ -1,0 +1,39 @@
+<div class="login-box">
+    <div class="login-logo text-center">
+        <img src="src/static/images/logo.svg" alt="logo">
+    </div>
+    <div class="card-body card-login text-center">
+        <p class="login-box-msg">Вход</p>
+        <div id="common-error" class="error invalid-feedback text-center mb-3">Неправильный email или пароль</div>
+        <form>
+            <div class="row">
+                <div class="input-group col-12 mb-3">
+                    <span class="input-group-text"><i class="bi bi-envelope-open"></i></span>
+                    <input type="text" class="form-control" placeholder="Электронная почта" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group col-12 mb-3">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input type="password" class="form-control" placeholder="Пароль" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div class="col-12 mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me" >
+                            Запомнить меня
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form">
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-block" id="process-button">Войти</button>
+                </div>
+            </div>
+            <div class="sign-up btn btn-primary">
+                <div class="col-12">
+                    <p>Еще нет аккаунта? <a href="/sign-up">Пройти регистрацию</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

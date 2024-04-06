@@ -1,0 +1,41 @@
+<div class="dashboard">
+
+    <div class="content-header">
+        <h1 class="m-0">Главная</h1>
+    </div>
+
+    <section class="content container">
+        <div class="row">
+            <div class="filter">
+                <!--            фильтрацию делать через jquery или методами js-->
+                <div class="row">
+                    <div class="btn-group" role="group" aria-label="FilterGroup">
+                        <button type="button" class="btn btn-secondary active">Сегодня</button>
+                        <button type="button" class="btn btn-outline-secondary">Неделя</button>
+                        <button type="button" class="btn btn-outline-secondary">Месяц</button>
+                        <button type="button" class="btn btn-outline-secondary">Год</button>
+                        <button type="button" class="btn btn-outline-secondary">Все</button>
+                        <div class="interval">
+                            <button type="button" class="btn btn-outline-secondary">Интервал</button>
+                            <span>с</span>
+                            <input type="date" placeholder="Дата" name="date-start" id="date-start">
+                            <span>по</span>
+                            <input type="date" placeholder="Дата" name="date-end" id="date-end">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pie">
+            <div class="chartBox">
+                <canvas id="myChartIncome"></canvas>
+                <canvas id="myChartExpense"></canvas>
+            </div>
+
+
+
+        </div>
+
+
+    </section>
+</div>

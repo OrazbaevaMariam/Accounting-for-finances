@@ -1,0 +1,64 @@
+<div class="wrapper">
+    <!-- Main Sidebar Container -->
+
+    <div class="d-flex justify-content-between flex-column flex-shrink-0 p-3 bg-light border-end" style="width: 219px;">
+        <div class="nav">
+
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <img src="../static/images/logo.svg" alt="logo" class="brand-image">
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" aria-current="page">
+                        <i class="bi bi-house"></i>
+                        Главная
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi bi-cash-coin"></i>
+                        Доходы & Расходы
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Категории
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item" aria-current="true">Доходы</a></li>
+                        <li><a href="#" class="dropdown-item">Расходы</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="info">
+
+            <div>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi bi-cash-coin"></i>
+                    Баланс: <span class="nav-balance">500$</span>
+                </a>
+            </div>
+            <hr>
+            <div class="person dropdown">
+                <div class="image d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+                     data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person rounded-circle me-2"></i>
+                </div>
+                <div class="info">
+                    <a href="javascript:void(0)" class="d-block" id="profile-name"> Roman Chernov</a>
+                </div>
+                <ul class="dropdown-menu text-small shadow show"
+                    style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(0px, -34px, 0px);"
+                    data-popper-placement="top-start">
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="content-wrapper" id="content-layout"></div>
+</div>

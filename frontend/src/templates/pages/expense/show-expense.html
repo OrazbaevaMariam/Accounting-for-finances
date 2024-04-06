@@ -1,0 +1,111 @@
+<div class="showExpense">
+
+  <section class="content container">
+    <div class="content-header">
+      <h1 class="m-0">Расходы</h1>
+    </div>
+    <div class="row d-flex justify-content-between">
+      <div class="col-4 border">
+        <div class="income-card">
+          <div class="income-name">
+            Еда
+          </div>
+          <button type="button" class="btn btn-primary">Редактировать</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+          <!-- Modal -->
+          <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="deleteIncome" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  Вы действительно хотите удалить категорию? Связанные доходы будут удалены навсегда.
+                </div>
+                <div class="modal-footer text-center">
+                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">Да, удалить</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 border">
+        <div class="income-card">
+          <div class="income-name">
+            Жильё
+          </div>
+          <button type="button" class="btn btn-primary">Редактировать</button>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteIncome">Удалить</button>
+
+        </div>
+      </div>
+      <div class="col-4 border">
+        <div class="income-card">
+          <div class="income-name">
+            Здоровье
+          </div>
+          <button type="button" class="btn btn-primary">Редактировать</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+        </div>
+      </div>
+      <div class="col-4 border">
+        <div class="income-card">
+          <div class="income-name">
+            Кафе
+          </div>
+          <button type="button" class="btn btn-primary">Редактировать</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+        </div>
+      </div>
+      <div class="col-4 border">
+        <div class="income-card">
+          <div class="income-name">
+            Авто
+          </div>
+          <button type="button" class="btn btn-primary">Редактировать</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+        </div>
+      </div>
+      <div class="col-4 border">
+        <div class="income-card">
+          <div class="income-name">
+            Одежда
+          </div>
+          <button type="button" class="btn btn-primary">Редактировать</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+        </div>
+      </div>
+      <div class="col-4 border">
+        <div class="income-card">
+          <div class="income-name">
+            Развлечения
+          </div>
+          <button type="button" class="btn btn-primary">Редактировать</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+        </div>
+      </div>
+      <div class="col-4 border">
+        <div class="income-card">
+          <div class="income-name">
+            Счета
+          </div>
+          <button type="button" class="btn btn-primary">Редактировать</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+        </div>
+      </div>
+      <div class="col-4 border">
+        <div class="income-card">
+          <div class="income-name">
+            Спорт
+          </div>
+          <button type="button" class="btn btn-primary">Редактировать</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+        </div>
+      </div>
+      <div class="col-4 border">
+        <a href="#" class="income-card-add align-middle text-center text-secondary">
+          +
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
