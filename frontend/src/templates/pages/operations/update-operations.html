@@ -5,24 +5,24 @@
 
     <section class="content container">
         <div class="content-header">
-            <h1 class="m-0">Редактирование дохода/расхода</h1>
+            <h1 class="text-primary-emphasis mb-4">Редактирование дохода/расхода</h1>
         </div>
-            <div class="update">
-                <select class="type-select" aria-label="Default select example">
+            <div class="update d-flex flex-column">
+                <select class="type-select p-2 ps-3 mb-2" aria-label="Default select example">
                     <option selected>Тип...</option>
                     <option value="1">Доход</option>
                     <option value="2">Расход</option>
                 </select>
-                <select class="category-select" aria-label="Default select example">
+                <select class="category-select p-2 ps-3 mb-2" aria-label="Default select example">
                     <option selected>Категория...</option>
                     <option value="1">Еда</option>
                     <option value="2">Жильё</option>
                 </select>
-                <input type="number" class="sum" placeholder="Сумма в $..." id="sum-operations" value="sum" required>
-                <input type="date" class="sum" placeholder="Дата..." id="date-operations" value="date" required>
-                <input type="text" class="sum" placeholder="Комментарий..." id="text-operations" value="text" required>
+                <input type="number" class="sum p-2 ps-3 mb-2" placeholder="Сумма в $..." id="sum-operations"  >
+                <input type="date" class="sum p-2 ps-3 mb-2" placeholder="Дата..." id="date-operations" >
+                <input type="text" class="sum p-2 ps-3 mb-3" placeholder="Комментарий..." id="text-operations" >
             </div>
-        <button type="button" class="btn btn-primary">Сохранить</button>
+        <button type="button" class="btn btn-success">Сохранить</button>
         <button type="button" class="btn btn-danger">Отмена</button>
     </section>
 </div>

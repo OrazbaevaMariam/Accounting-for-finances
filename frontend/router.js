@@ -31,9 +31,7 @@ export class Router {
                     new Dashboard(this.openNewRoute.bind(this));
                 },
                 scripts: [
-                    'chart.js',
-                    // 'moment.min.js',
-                    // 'moment-ru-locale.js',
+
                 ],
                 styles: [
                 ]
@@ -148,16 +146,29 @@ export class Router {
             {
                 route: '/operations',
                 title: 'Доходы и расходы',
-                filePathTemplate: '/templates/pages/operations/operations-show.js',
+                filePathTemplate: '/templates/pages/operations/show-operations.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new OperationsShow(this.openNewRoute.bind(this));
                 },
             },
             {
-                route: '/operations/create',
-                title: 'Создание дохода/расхода',
-                filePathTemplate: '/templates/pages/operations/create.html',
+                route: '/operations/create/income',
+                title: 'Создание дохода',
+                filePathTemplate: '/templates/pages/operations/create-operations-income.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new OperationsCreate(this.openNewRoute.bind(this));
+                },
+                scripts: [
+                ],
+                styles: [
+                ]
+            },
+            {
+                route: '/operations/create/extreme',
+                title: 'Создание расхода',
+                filePathTemplate: '/templates/pages/operations/create-operations-expense.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new OperationsCreate(this.openNewRoute.bind(this));
@@ -262,39 +273,39 @@ export class Router {
             if (newRoute.title) {
                 this.titlePageElement.innerText = newRoute.title + ' | Accounting Finances';
             }
-            // if (newRoute.filePathTemplate) {
-            //     let contentBlock = this.contentPageElement;
-            //     if (newRoute.useLayout) {
-            //         this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
-            //         contentBlock = document.getElementById('content-layout');
-            //         document.body.classList.add('sidebar-mini');
-            //         document.body.classList.add('layout-fixed');
-            //
-            //         this.profileNameElement = document.getElementById('profile-name');
-            //
-            //         if (!this.userName) {
-            //             let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
-            //             if (userInfo) {
-            //                 userInfo = JSON.parse(userInfo);
-            //                 if (userInfo.name) {
-            //                     this.userName = userInfo.name;
-            //                 }
-            //             }
-            //         }
-            //         this.profileNameElement.innerText = this.userName;
-            //
-            //
-            //         this.activateMenuItem(newRoute);
-            //     } else {
-            //         document.body.classList.remove('sidebar-mini');
-            //         document.body.classList.remove('layout-fixed');
-            //     }
-            //     contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
-            // }
-            //
-            // if (newRoute.load && typeof newRoute.load === 'function') {
-            //     newRoute.load();
-            // }
+            if (newRoute.filePathTemplate) {
+                let contentBlock = this.contentPageElement;
+                if (newRoute.useLayout) {
+                    this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
+                    contentBlock = document.getElementById('content-layout');
+                    document.body.classList.add('sidebar-mini');
+                    document.body.classList.add('layout-fixed');
+
+                    this.profileNameElement = document.getElementById('profile-name');
+
+                    // if (!this.userName) {
+                    //     let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
+                    //     if (userInfo) {
+                    //         userInfo = JSON.parse(userInfo);
+                    //         if (userInfo.name) {
+                    //             this.userName = userInfo.name;
+                    //         }
+                    //     }
+                    // }
+                    // this.profileNameElement.innerText = this.userName;
+
+
+                    this.activateMenuItem(newRoute);
+                } else {
+                    document.body.classList.remove('sidebar-mini');
+                    document.body.classList.remove('layout-fixed');
+                }
+                contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
+            }
+
+            if (newRoute.load && typeof newRoute.load === 'function') {
+                newRoute.load();
+            }
         } else {
             console.log('No route found');
 
@@ -303,15 +314,15 @@ export class Router {
         }
     }
 
-    // activateMenuItem(route) {
-    //     document.querySelectorAll('.sidebar .nav-link').forEach(item => {
-    //         const href = item.getAttribute('href');
-    //         if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
-    //             item.classList.add('active');
-    //         } else {
-    //             item.classList.remove('active');
-    //         }
-    //     });
-    // }
+    activateMenuItem(route) {
+        document.querySelectorAll('.sidebar .nav-link').forEach(item => {
+            const href = item.getAttribute('href');
+            if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
 
 }

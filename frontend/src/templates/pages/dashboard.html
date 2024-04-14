@@ -1,37 +1,34 @@
 <div class="dashboard">
 
     <div class="content-header">
-        <h1 class="m-0">Главная</h1>
+        <h1 class="text-primary-emphasis mb-5">Главная</h1>
     </div>
 
     <section class="content container">
-        <div class="row">
-            <div class="filter">
+            <div class="filter gx-0">
                 <!--            фильтрацию делать через jquery или методами js-->
-                <div class="row">
-                    <div class="btn-group" role="group" aria-label="FilterGroup">
-                        <button type="button" class="btn btn-secondary active">Сегодня</button>
-                        <button type="button" class="btn btn-outline-secondary">Неделя</button>
-                        <button type="button" class="btn btn-outline-secondary">Месяц</button>
-                        <button type="button" class="btn btn-outline-secondary">Год</button>
-                        <button type="button" class="btn btn-outline-secondary">Все</button>
-                        <div class="interval">
-                            <button type="button" class="btn btn-outline-secondary">Интервал</button>
-                            <span>с</span>
-                            <input type="date" placeholder="Дата" name="date-start" id="date-start">
-                            <span>по</span>
-                            <input type="date" placeholder="Дата" name="date-end" id="date-end">
-                        </div>
-                    </div>
-                </div>
+                    <button type="button" class="btn btn-secondary active">Сегодня</button>
+                    <button type="button" class="btn btn-outline-secondary">Неделя</button>
+                    <button type="button" class="btn btn-outline-secondary">Месяц</button>
+                    <button type="button" class="btn btn-outline-secondary">Год</button>
+                    <button type="button" class="btn btn-outline-secondary">Все</button>
+                        <button type="button" class="btn btn-outline-secondary me-1">Интервал</button>
+                        <span>с</span>
+                        <input type="date" class="date-start mx-1" placeholder="Дата" name="date-start" id="date-start">
+                        <span>по</span>
+                        <input type="date" class=" date-end ms-1" placeholder="Дата" name="date-end" id="date-end">
             </div>
-        </div>
         <div class="pie">
             <div class="chartBox">
-                <canvas id="myChartIncome"></canvas>
-                <canvas id="myChartExpense"></canvas>
+                <div class="chartBox__income">
+                    <h2 class="text-primary-emphasis text-center">Доходы</h2>
+                    <canvas id="myChartIncome" class="border-end"></canvas>
+                </div>
+                <div class="chartBox__expense">
+                    <h2 class="text-primary-emphasis text-center">Расходы</h2>
+                    <canvas id="myChartExpense"></canvas>
+                </div>
             </div>
-
 
 
         </div>

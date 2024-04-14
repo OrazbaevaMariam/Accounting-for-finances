@@ -1,31 +1,23 @@
 <div class=showOperations>
 
-    <section class="content container">
+    <section class="content container p-0">
         <div class="content-header">
-            <h1 class="m-0">Доходы и расходы</h1>
+            <h1 class="text-primary-emphasis mb-5">Доходы и расходы</h1>
         </div>
-        <div class="row">
-            <button type="button" class="btn btn-primary">Сохранить</button>
-            <button type="button" class="btn btn-danger">Отмена</button>
-        </div>
-        <div class="filter">
-            <!--            фильтрацию делать через jquery-->
-            <div class="row">
-                <div class="btn-group" role="group" aria-label="FilterGroup">
-                    <button type="button" class="btn btn-secondary active">Сегодня</button>
-                    <button type="button" class="btn btn-outline-secondary">Неделя</button>
-                    <button type="button" class="btn btn-outline-secondary">Месяц</button>
-                    <button type="button" class="btn btn-outline-secondary">Год</button>
-                    <button type="button" class="btn btn-outline-secondary">Все</button>
-                    <div class="interval">
-                        <button type="button" class="btn btn-outline-secondary">Интервал</button>
-                        <span>с</span>
-                        <input type="date" placeholder="Дата" name="date-start" id="date-start">
-                        <span>по</span>
-                        <input type="date" placeholder="Дата" name="date-end" id="date-end">
-                    </div>
-                </div>
-            </div>
+        <a href="/operations/create/income" type="button" class="btn btn-success me-1">Создать доход</a>
+        <a href="/operations/create/extreme" type="button" class="btn btn-danger">Создать расход</a>
+        <div class="filter gx-0 my-5">
+            <!--            фильтрацию делать через jquery или методами js-->
+            <button type="button" class="btn btn-secondary active">Сегодня</button>
+            <button type="button" class="btn btn-outline-secondary">Неделя</button>
+            <button type="button" class="btn btn-outline-secondary">Месяц</button>
+            <button type="button" class="btn btn-outline-secondary">Год</button>
+            <button type="button" class="btn btn-outline-secondary">Все</button>
+            <button type="button" class="btn btn-outline-secondary me-1">Интервал</button>
+            <span>с</span>
+            <input type="date" class="date-start mx-1" placeholder="Дата" name="date-start" id="date-start">
+            <span>по</span>
+            <input type="date" class=" date-end ms-1" placeholder="Дата" name="date-end" id="date-end">
         </div>
         <table class="table">
             <thead>
@@ -37,42 +29,50 @@
                 <th scope="col">Дата</th>
                 <th scope="col">Комментарий</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <th scope="row">1</th>
-                <td>доход</td>
+                <td class="text-success">доход</td>
                 <td>зарплата</td>
                 <td>@500$</td>
                 <td>11.09.2022</td>
                 <td></td>
-                <td><a href="#"><i class="bi bi-trash"></i></a></td>
-                <td><a href="#"><i class="bi bi-pencil"></i></a></td>
+                <td><a href="#" type="button" class="" data-bs-toggle="modal" data-bs-target="#deleteOperation"><i
+                        class="bi bi-trash"></i></a>
+                    <!-- Modal --></td>
+
+                <div class="modal fade" id="deleteOperation" tabindex="-1" aria-labelledby="deleteOperationLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <h5 class="modal-body p-4 mb-0 text-primary-emphasis">
+                                Вы действительно хотите удалить операцию?
+                            </h5>
+                            <div class="modal-footer text-center border-0 pb-4 pt-0 mx-auto">
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Да, удалить
+                                </button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <td><a href="/operations/edit"><i class="bi bi-pencil"></i></a></td>
             </tr>
             <tr>
                 <th scope="row">2</th>
-                <td>расход</td>
+                <td class="text-danger">расход</td>
                 <td>жильё</td>
                 <td>2 500$</td>
                 <td>12.09.2022</td>
                 <td></td>
                 <td><a href="#"><i class="bi bi-trash"></i></a></td>
                 <td><a href="#"><i class="bi bi-pencil"></i></a></td>
-                <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="deleteOperation" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                Вы действительно хотите удалить операцию?
-                            </div>
-                            <div class="modal-footer text-center">
-                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Да, удалить
-                                </button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
             </tr>
             </tbody>
         </table>

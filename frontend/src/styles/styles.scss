@@ -1,5 +1,164 @@
+@import "../../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "../../node_modules/bootstrap-icons/font/bootstrap-icons.min.css";
-@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-.chartBox{
-  width: 360px;
+
+#content {
+  text-align: center;
+  text-align: -webkit-center;
+
+  .wrapper {
+    display: flex;
+
+    .sidebar {
+      .logo {
+        align-self: center;
+
+        .brand-image {
+          width: 98px;
+          height: 40px;
+        }
+      }
+
+      .navigation {
+        .nav-item {
+          .nav-link {
+          }
+        }
+
+
+      }
+    }
+
+
+    .content-wrapper {
+      padding: 65px 35px;
+      box-sizing: border-box;
+      margin-right: -24px;
+
+      .dashboard {
+        .content-header {
+
+        }
+
+        .content {
+
+          .filter {
+            margin-bottom: 100px;
+          }
+
+          .pie {
+            .chartBox {
+              display: flex;
+
+              .chartBox__income {
+                width: 360px;
+
+              }
+
+              .chartBox__expense {
+                width: 360px;
+
+              }
+            }
+          }
+        }
+      }
+
+
+      .bi-trash, .bi-pencil {
+        color: #000000;
+      }
+
+
+      .card {
+        width: 307px;
+        height: 111px;
+
+
+        .income-card-add {
+          margin-right: 24px;
+          height: 100%;
+          display: flex;
+
+          .plus {
+            display: inline-block;
+            margin: auto
+          }
+        }
+
+      }
+
+    }
+  }
+
+  .login-box {
+    width: 397px;
+
+    .login-logo {
+      .brand-image {
+        width: 171px;
+        height: 70px;
+      }
+    }
+
+    .card-login {
+      .login-box-msg {
+      }
+
+      .error {
+      }
+
+      .form {
+
+        .form-inputs {
+
+          display: inline-block;
+
+          .input-group {
+
+          }
+        }
+
+        .form-login {
+
+        }
+
+        .sign-up {
+
+        }
+      }
+    }
+  }
+
+  .signup-box {
+    width: 397px;
+    .signup-logo {
+      .brand-image {
+        width: 171px;
+        height: 70px;
+      }
+    }
+
+    .card-body {
+      .signup-box-msg {
+
+      }
+
+      .error {
+
+      }
+
+      .form {
+        .auth {
+          display: inline-block;
+          .input-group {
+
+          }
+        }
+
+        .form-signUp {
+
+        }
+      }
+    }
+  }
 }

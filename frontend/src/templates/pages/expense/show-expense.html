@@ -1,111 +1,117 @@
 <div class="showExpense">
 
-  <section class="content container">
-    <div class="content-header">
-      <h1 class="m-0">Расходы</h1>
-    </div>
-    <div class="row d-flex justify-content-between">
-      <div class="col-4 border">
-        <div class="income-card">
-          <div class="income-name">
-            Еда
-          </div>
-          <button type="button" class="btn btn-primary">Редактировать</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
-          <!-- Modal -->
-          <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="deleteIncome" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-body">
-                  Вы действительно хотите удалить категорию? Связанные доходы будут удалены навсегда.
+    <section class="content container p-0">
+        <div class="content-header">
+            <h1 class="text-primary-emphasis mb-4">Расходы</h1>
+        </div>
+        <div class="row d-flex flex-wrap gx-0 ">
+            <div class="col-4 border rounded-4 card me-4 gy-4">
+                <div class="expense-card p-3">
+                    <h3 class="expense-name text-primary-emphasis">
+                        Еда
+                    </h3>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
+                    <a href="#" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteExpense">Удалить</a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="deleteExpense" tabindex="-1" aria-labelledby="deleteExpenseLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <h5 class="modal-body p-4 mb-0 text-primary-emphasis">
+                                    Вы действительно хотите удалить категорию? Связанные доходы будут удалены навсегда.
+                                </h5>
+                                <div class="modal-footer text-center border-0 pb-4 pt-0 mx-auto">
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Да, удалить
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer text-center">
-                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">Да, удалить</button>
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять</button>
-                </div>
-              </div>
             </div>
-          </div>
+            <div class="col-4 border rounded-4 card gy-4 me-4">
+                <div class="expense-card p-3">
+                    <h3 class="expense-name text-primary-emphasis">
+                        Жильё
+                    </h3>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border rounded-4 card gy-4 me-4">
+                <div class="expense-card p-3">
+                    <h3 class="expense-name text-primary-emphasis">
+                        Здоровье
+                    </h3>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border rounded-4 card gy-4 me-4">
+                <div class="expense-card p-3">
+                    <h3 class="expense-name text-primary-emphasis">
+                        Кафе
+                    </h3>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border rounded-4 card gy-4 me-4">
+                <div class="expense-card p-3">
+                    <h3 class="expense-name text-primary-emphasis">
+                        Авто
+                    </h3>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border rounded-4 card gy-4 me-4">
+                <div class="expense-card p-3">
+                    <h3 class="expense-name text-primary-emphasis">
+                        Одежда
+                    </h3>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border rounded-4 card gy-4 me-4">
+                <div class="expense-card p-3">
+                    <h3 class="expense-name text-primary-emphasis">
+                        Развлечения
+                    </h3>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border rounded-4 card gy-4 me-4">
+                <div class="expense-card p-3">
+                    <h3 class="expense-name text-primary-emphasis">
+                        Счета
+                    </h3>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border rounded-4 card gy-4 me-4">
+                <div class="expense-card p-3">
+                    <h3 class="expense-name text-primary-emphasis">
+                        Спорт
+                    </h3>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <div class="col-4 border rounded-4 card gy-4 me-4">
+                <a href="/expense/create" class="income-card-add align-middle text-center text-secondary m-0">
+                    <svg class="plus" width="15" height="15" viewBox="0 0 15 15" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.5469 6.08984V9.05664H0.902344V6.08984H14.5469ZM9.32422 0.511719V15.0039H6.13867V0.511719H9.32422Z"
+                              fill="#CED4DA"/>
+                    </svg>
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="col-4 border">
-        <div class="income-card">
-          <div class="income-name">
-            Жильё
-          </div>
-          <button type="button" class="btn btn-primary">Редактировать</button>
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteIncome">Удалить</button>
-
-        </div>
-      </div>
-      <div class="col-4 border">
-        <div class="income-card">
-          <div class="income-name">
-            Здоровье
-          </div>
-          <button type="button" class="btn btn-primary">Редактировать</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
-        </div>
-      </div>
-      <div class="col-4 border">
-        <div class="income-card">
-          <div class="income-name">
-            Кафе
-          </div>
-          <button type="button" class="btn btn-primary">Редактировать</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
-        </div>
-      </div>
-      <div class="col-4 border">
-        <div class="income-card">
-          <div class="income-name">
-            Авто
-          </div>
-          <button type="button" class="btn btn-primary">Редактировать</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
-        </div>
-      </div>
-      <div class="col-4 border">
-        <div class="income-card">
-          <div class="income-name">
-            Одежда
-          </div>
-          <button type="button" class="btn btn-primary">Редактировать</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
-        </div>
-      </div>
-      <div class="col-4 border">
-        <div class="income-card">
-          <div class="income-name">
-            Развлечения
-          </div>
-          <button type="button" class="btn btn-primary">Редактировать</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
-        </div>
-      </div>
-      <div class="col-4 border">
-        <div class="income-card">
-          <div class="income-name">
-            Счета
-          </div>
-          <button type="button" class="btn btn-primary">Редактировать</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
-        </div>
-      </div>
-      <div class="col-4 border">
-        <div class="income-card">
-          <div class="income-name">
-            Спорт
-          </div>
-          <button type="button" class="btn btn-primary">Редактировать</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
-        </div>
-      </div>
-      <div class="col-4 border">
-        <a href="#" class="income-card-add align-middle text-center text-secondary">
-          +
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
 </div>
