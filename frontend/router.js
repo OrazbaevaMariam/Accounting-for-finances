@@ -11,7 +11,8 @@ import {Dashboard} from "./src/components/dashboard";
 import {Login} from "./src/components/auth/login";
 import {SignUp} from "./src/components/auth/sign-up";
 import {Logout} from "./src/components/auth/logout";
-import {FileUtils} from "./src/utiils/file-utils";
+import {FileUtils} from "./src/utils/file-utils";
+import {AuthUtils} from "./src/utils/auth-utils";
 
 export class Router {
     constructor() {
@@ -283,16 +284,16 @@ export class Router {
 
                     this.profileNameElement = document.getElementById('profile-name');
 
-                    // if (!this.userName) {
-                    //     let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
-                    //     if (userInfo) {
-                    //         userInfo = JSON.parse(userInfo);
-                    //         if (userInfo.name) {
-                    //             this.userName = userInfo.name;
-                    //         }
-                    //     }
-                    // }
-                    // this.profileNameElement.innerText = this.userName;
+                    if (!this.userName) {
+                        let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
+                        if (userInfo) {
+                            userInfo = JSON.parse(userInfo);
+                            if (userInfo.name) {
+                                this.userName = userInfo.name;
+                            }
+                        }
+                    }
+                    this.profileNameElement.innerText = this.userName;
 
 
                     this.activateMenuItem(newRoute);
