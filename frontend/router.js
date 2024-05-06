@@ -4,7 +4,7 @@ import {ExpenseUpdate} from "./src/components/expense/expense-update";
 import {IncomeShow} from "./src/components/income/income-show";
 import {IncomeCreate} from "./src/components/income/income-create";
 import {IncomeUpdate} from "./src/components/income/income-update";
-import {OperationsShow} from "./src/components/operations/operations-show";
+import {OperationsList, OperationsShow} from "./src/components/operations/operations-show";
 import {OperationsCreate} from "./src/components/operations/operations-create";
 import {OperationsUpdate} from "./src/components/operations/operations-update";
 import {Dashboard} from "./src/components/dashboard";
@@ -13,6 +13,8 @@ import {SignUp} from "./src/components/auth/sign-up";
 import {Logout} from "./src/components/auth/logout";
 import {FileUtils} from "./src/utils/file-utils";
 import {AuthUtils} from "./src/utils/auth-utils";
+import {ExpenseDelete} from "./src/components/expense/expense-delete";
+import {IncomeDelete} from "./src/components/income/income-delete";
 
 export class Router {
     constructor() {
@@ -20,6 +22,7 @@ export class Router {
         this.titlePageElement = document.getElementById('title');
         this.contentPageElement = document.getElementById('content');
         this.userName = null;
+        this.profileNameElement = document.getElementById('profile-name');
 
         this.initEvents();
         this.routes = [
@@ -31,11 +34,8 @@ export class Router {
                 load: () => {
                     new Dashboard(this.openNewRoute.bind(this));
                 },
-                scripts: [
-
-                ],
-                styles: [
-                ]
+                scripts: [],
+                styles: []
             },
             {
                 route: '/404',
@@ -108,8 +108,14 @@ export class Router {
                 load: () => {
                     new ExpenseUpdate(this.openNewRoute.bind(this));
                 },
-                scripts: [
-                ]
+                scripts: []
+            },
+            {
+                route: '/expense/delete',
+                load: () => {
+                    new ExpenseDelete(this.openNewRoute.bind(this));
+                },
+
             },
             {
                 route: '/income',
@@ -119,8 +125,7 @@ export class Router {
                 load: () => {
                     new IncomeShow(this.openNewRoute.bind(this));
                 },
-                scripts: [
-                ]
+                scripts: []
             },
             {
                 route: '/income/create',
@@ -130,8 +135,7 @@ export class Router {
                 load: () => {
                     new IncomeCreate(this.openNewRoute.bind(this));
                 },
-                scripts: [
-                ]
+                scripts: []
             },
             {
                 route: '/income/update',
@@ -141,8 +145,15 @@ export class Router {
                 load: () => {
                     new IncomeUpdate(this.openNewRoute.bind(this));
                 },
-                scripts: [
-                ]
+                scripts: []
+            },
+
+            {
+                route: '/income/delete',
+                load: () => {
+                    new IncomeDelete(this.openNewRoute.bind(this));
+                },
+
             },
             {
                 route: '/operations',
@@ -150,7 +161,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/operations/show-operations.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new OperationsShow(this.openNewRoute.bind(this));
+                    new OperationsList(this.openNewRoute.bind(this));
                 },
             },
             {
@@ -161,36 +172,41 @@ export class Router {
                 load: () => {
                     new OperationsCreate(this.openNewRoute.bind(this));
                 },
-                scripts: [
-                ],
-                styles: [
-                ]
+                scripts: [],
+                styles: []
             },
             {
-                route: '/operations/create/extreme',
+                route: '/operations/create/expense',
                 title: 'Создание расхода',
                 filePathTemplate: '/templates/pages/operations/create-operations-expense.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new OperationsCreate(this.openNewRoute.bind(this));
                 },
-                scripts: [
-                ],
-                styles: [
-                ]
+                scripts: [],
+                styles: []
             },
             {
-                route: '/operations/edit',
+                route: '/operations/edit/income',
                 title: 'Редактирование дохода/расхода',
-                filePathTemplate: '/templates/pages/operations/update-operations.html',
+                filePathTemplate: '/templates/pages/operations/update-operations-income.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new OperationsUpdate(this.openNewRoute.bind(this));
                 },
-                scripts: [
-                ],
-                styles: [
-                ]
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/operations/edit/expense',
+                title: 'Редактирование дохода/расхода',
+                filePathTemplate: '/templates/pages/operations/update-operations-expense.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new OperationsUpdate(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
             },
             // {
             //     route: '/orders/delete',
@@ -260,6 +276,9 @@ export class Router {
         const newRoute = this.routes.find(item => item.route === urlRoute);
 
         if (newRoute) {
+            if (newRoute.useLayout && !AuthUtils.getAuthInfo().userInfo) {
+                window.location = '/login'
+            }
             if (newRoute.styles && newRoute.styles.length > 0) {
                 newRoute.styles.forEach(style => {
                     FileUtils.loadPageStyle('/css/' + style);
@@ -282,19 +301,18 @@ export class Router {
                     document.body.classList.add('sidebar-mini');
                     document.body.classList.add('layout-fixed');
 
-                    this.profileNameElement = document.getElementById('profile-name');
-
                     if (!this.userName) {
                         let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
                         if (userInfo) {
                             userInfo = JSON.parse(userInfo);
-                            if (userInfo.name) {
-                                this.userName = userInfo.name;
+                            if (userInfo.name && userInfo.lastName) {
+                                this.userName = userInfo.name + userInfo.lastName;
                             }
                         }
                     }
-                    this.profileNameElement.innerText = this.userName;
-
+                    this.profileNameElement = this.userName;
+                    // this.profileNameElement.innerText = localStorage.getItem(AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey));
+                    // console.log(AuthUtils.userInfoTokenKey)
 
                     this.activateMenuItem(newRoute);
                 } else {

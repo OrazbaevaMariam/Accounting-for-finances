@@ -1,10 +1,10 @@
 export class ValidationUtils {
 
-    static validateForm(validations){
+    static validateForm(validations, errorElement = null){
         let isValid = true;
 
         for (let i = 0; i < validations.length; i++) {
-            if (!ValidationUtils.validateField(validations[i].element, validations[i].options)) {
+            if (!ValidationUtils.validateField(validations[i].element, validations[i].options, errorElement)) {
                 isValid = false;
             }
         }
@@ -13,7 +13,7 @@ export class ValidationUtils {
     }
 
 
-    static validateField(element, options) {
+    static validateField(element, options, errorElement) {
         let condition = element.value;
         if (options){
             if(options.hasOwnProperty('pattern')){
@@ -30,9 +30,11 @@ export class ValidationUtils {
 
         if (condition) {
             element.classList.remove('is-invalid');
+            errorElement.style.display = 'none';
             return true;
         } else {
             element.classList.add('is-invalid');
+            errorElement.style.display = 'block';
             return false;
         }
     }

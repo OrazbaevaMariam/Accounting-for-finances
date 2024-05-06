@@ -5,19 +5,18 @@
             <h1 class="text-primary-emphasis mb-4">Создание дохода</h1>
         </div>
         <div class="update d-flex flex-column">
-            <select class="type-select p-2 ps-3 mb-2" aria-label="Default select example">
-                <option selected>Тип...</option>
+            <select placeholder="Тип..." id="input-income-type" class="type-select p-2 ps-3 mb-2" aria-label="Default select example">
                 <option value="1">Доход</option>
                 <option value="2">Расход</option>
             </select>
-            <select class="category-select p-2 ps-3 mb-2" aria-label="Default select example">
-                <option selected>Категория...</option>
+            <select placeholder="Категория..." id="input-income-category" class="category-select p-2 ps-3 mb-2" aria-label="Default select example">
                 <option value="1">Еда</option>
                 <option value="2">Жильё</option>
             </select>
-            <input type="number" class="sum p-2 ps-3 mb-2" placeholder="Сумма в $..." id="sum-operations"  >
-            <input type="date" class="sum p-2 ps-3 mb-2" placeholder="Дата..." id="date-operations" >
-            <input type="text" class="sum p-2 ps-3 mb-3" placeholder="Комментарий..." id="text-operations" >
+            <input type="number" class="sum p-2 ps-3 mb-2" placeholder="Сумма в $..." id="input-income-sum">
+            <input type="date" class="sum p-2 ps-3 mb-2" placeholder="Дата..." id="input-income-date">
+            <input type="text" class="sum p-2 ps-3 mb-3" placeholder="Комментарий..." id="input-income-message">
+            фя
         </div>
         <button type="button" class="btn btn-success">Сохранить</button>
         <button type="button" class="btn btn-danger">Отмена</button>

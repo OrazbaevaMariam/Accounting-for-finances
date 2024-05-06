@@ -12,25 +12,27 @@ export class Login {
             return this.openNewRoute('/');
         }
 
-        this.findElements();
-
-        this.validations = [
-            {element: this.passwordElement},
-            {element: this.emailElement, options: {pattern: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/}},
-        ];
-        document.getElementById('process-button').addEventListener('click', this.login.bind(this));
-    }
-
-    findElements() {
         this.emailElement = document.getElementById('email');
         this.passwordElement = document.getElementById('password');
         this.rememberMeElement = document.getElementById('remember-me');
         this.commonErrorElement = document.getElementById('common-error-login');
+
+        this.findElements();
+
+        document.getElementById('process-button').addEventListener('click', this.login.bind(this));
+    }
+
+    findElements() {
+        this.validations = [
+            {element: this.passwordElement},
+            {element: this.emailElement, options: {pattern: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/}},
+        ];
     }
 
     async login() {
-        this.commonErrorElement.style.display = 'none';
-        if (ValidationUtils.validateForm(this.validations)) {
+        // this.commonErrorElement.style.display = 'none';
+        const errorElement = document.getElementById('common-error-login');
+        if (ValidationUtils.validateForm(this.validations, errorElement)) {
             const loginResult = AuthService.logIn({
                 email: this.emailElement.value,
                 password: this.passwordElement.value,

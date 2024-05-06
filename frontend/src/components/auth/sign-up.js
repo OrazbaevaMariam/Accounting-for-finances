@@ -10,7 +10,6 @@ export class SignUp {
         if (AuthUtils.getAuthInfo('accessToken')) {
             return this.openNewRoute('/');
         }
-        this.findElements();
 
         this.nameElement = document.getElementById('name');
         this.emailElement = document.getElementById('email');
@@ -18,6 +17,7 @@ export class SignUp {
         this.passwordRepeatElement = document.getElementById('password-repeat');
         this.commonErrorElement = document.getElementById('common-error-signup');
 
+        this.findElements();
 
         document.getElementById('process-button').addEventListener('click', this.signUp.bind(this));
     }
@@ -39,16 +39,22 @@ export class SignUp {
             }
         }
 
-        if (ValidationUtils.validateForm(this.validations)) {
+        const errorElement = document.getElementById('common-error-signup');
+
+        if (ValidationUtils.validateForm(this.validations, errorElement)) {
             const signupResult = AuthService.signUp({
-                name: this.nameElement.value,
+                name: this.nameElement.value.split(' ')[0],
+                lastName: this.nameElement.value.split(' ')[1],
                 email: this.emailElement.value,
                 password: this.passwordElement.value,
+                passwordRepeat: this.passwordRepeatElement,
             });
             if (signupResult) {
                 AuthUtils.setAuthInfo(signupResult.accessToken, signupResult.refreshToken, {
                     id: signupResult.id,
-                    name: signupResult.name
+                    name: signupResult.name,
+                    lastName: signupResult.lastName,
+
                 });
                 return this.openNewRoute('/');
             }
