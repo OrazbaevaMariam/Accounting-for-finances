@@ -33,15 +33,15 @@ export class Login {
         // this.commonErrorElement.style.display = 'none';
         const errorElement = document.getElementById('common-error-login');
         if (ValidationUtils.validateForm(this.validations, errorElement)) {
-            const loginResult = AuthService.logIn({
+            const loginResult = await AuthService.logIn({
                 email: this.emailElement.value,
                 password: this.passwordElement.value,
                 rememberMe: this.rememberMeElement.checked,
             });
             if (loginResult) {
-                AuthUtils.setAuthInfo(loginResult.accessToken, loginResult.refreshToken, {
-                    id: loginResult.id,
-                    name: loginResult.name
+                AuthUtils.setAuthInfo(loginResult.tokens.accessToken, loginResult.tokens.refreshToken, {
+                    id: loginResult.user.id,
+                    name: loginResult.user.name + ' '+ loginResult.user.lastName
                 });
                 return this.openNewRoute('/');
             }

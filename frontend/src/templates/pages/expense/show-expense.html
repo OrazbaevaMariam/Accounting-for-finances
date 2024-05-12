@@ -4,14 +4,14 @@
         <div class="content-header">
             <h1 class="text-primary-emphasis mb-4">Расходы</h1>
         </div>
-        <div class="row d-flex flex-wrap gx-0 ">
+        <div class="row d-flex flex-wrap gx-0 " id="cards">
             <div class="col-4 border rounded-4 card me-4 gy-4">
                 <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis" id="expense-title">
+                    <h3 class="expense-name text-primary-emphasis" id="expenseCategoryTitle">
                         Еда
                     </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1" id="edit-link">Редактировать</a>
-                    <a href="#" type="button" class="btn btn-danger" data-bs-toggle="modal" id="delete-link" data-bs-target="#deleteExpense">Удалить</a>
+                    <a href="/expense/update" type="button" class="btn btn-primary me-1" id="expenseCategoryEdit">Редактировать</a>
+                    <a href="#" type="button" class="btn btn-danger" data-bs-toggle="modal" id="expenseCategoryDelete" data-bs-target="#deleteExpense">Удалить</a>
                     <!-- Modal -->
                     <div class="modal fade" id="deleteExpense" tabindex="-1" aria-labelledby="deleteExpenseLabel"
                          aria-hidden="true">
@@ -31,78 +31,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4 border rounded-4 card gy-4 me-4">
-                <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis">
-                        Жильё
-                    </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
-                    <button type="button" class="btn btn-danger">Удалить</button>
-                </div>
-            </div>
-            <div class="col-4 border rounded-4 card gy-4 me-4">
-                <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis">
-                        Здоровье
-                    </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
-                    <button type="button" class="btn btn-danger">Удалить</button>
-                </div>
-            </div>
-            <div class="col-4 border rounded-4 card gy-4 me-4">
-                <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis">
-                        Кафе
-                    </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
-                    <button type="button" class="btn btn-danger">Удалить</button>
-                </div>
-            </div>
-            <div class="col-4 border rounded-4 card gy-4 me-4">
-                <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis">
-                        Авто
-                    </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
-                    <button type="button" class="btn btn-danger">Удалить</button>
-                </div>
-            </div>
-            <div class="col-4 border rounded-4 card gy-4 me-4">
-                <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis">
-                        Одежда
-                    </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
-                    <button type="button" class="btn btn-danger">Удалить</button>
-                </div>
-            </div>
-            <div class="col-4 border rounded-4 card gy-4 me-4">
-                <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis">
-                        Развлечения
-                    </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
-                    <button type="button" class="btn btn-danger">Удалить</button>
-                </div>
-            </div>
-            <div class="col-4 border rounded-4 card gy-4 me-4">
-                <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis">
-                        Счета
-                    </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
-                    <button type="button" class="btn btn-danger">Удалить</button>
-                </div>
-            </div>
-            <div class="col-4 border rounded-4 card gy-4 me-4">
-                <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis">
-                        Спорт
-                    </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1">Редактировать</a>
-                    <button type="button" class="btn btn-danger">Удалить</button>
-                </div>
-            </div>
+
+
             <div class="col-4 border rounded-4 card gy-4 me-4">
                 <a href="/expense/create" class="income-card-add align-middle text-center text-secondary m-0" id="expense-add">
                     <svg class="plus" width="15" height="15" viewBox="0 0 15 15" fill="none"

@@ -4,7 +4,7 @@ export class AuthService {
     static async logIn(data){
         const result = await HttpUtils.request('/login', 'POST', false, data);
 
-        if (result.error || !result.user || !result.response || (result.response && (!result.response.accessToken || !result.response.refreshToken))) {
+        if (result.error || !result.response.user || !result.response || (result.response && (!result.response.tokens.accessToken || !result.response.tokens.refreshToken))) {
             return false;
         }
 

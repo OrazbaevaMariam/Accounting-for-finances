@@ -4,8 +4,8 @@ import {ExpenseUpdate} from "./src/components/expense/expense-update";
 import {IncomeShow} from "./src/components/income/income-show";
 import {IncomeCreate} from "./src/components/income/income-create";
 import {IncomeUpdate} from "./src/components/income/income-update";
-import {OperationsList, OperationsShow} from "./src/components/operations/operations-show";
-import {OperationsCreate} from "./src/components/operations/operations-create";
+import {OperationsList} from "./src/components/operations/operations-show";
+import {OperationsExpenseCreate} from "./src/components/operations/operations-expense-create";
 import {OperationsUpdate} from "./src/components/operations/operations-update";
 import {Dashboard} from "./src/components/dashboard";
 import {Login} from "./src/components/auth/login";
@@ -15,6 +15,8 @@ import {FileUtils} from "./src/utils/file-utils";
 import {AuthUtils} from "./src/utils/auth-utils";
 import {ExpenseDelete} from "./src/components/expense/expense-delete";
 import {IncomeDelete} from "./src/components/income/income-delete";
+import {Sidebar} from "./src/components/sidebar";
+import {OperationsIncomeCreate} from "./src/components/operations/operations-income-create";
 
 export class Router {
     constructor() {
@@ -170,7 +172,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/operations/create-operations-income.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new OperationsCreate(this.openNewRoute.bind(this));
+                    new OperationsIncomeCreate(this.openNewRoute.bind(this));
                 },
                 scripts: [],
                 styles: []
@@ -181,7 +183,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/operations/create-operations-expense.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new OperationsCreate(this.openNewRoute.bind(this));
+                    new OperationsExpenseCreate(this.openNewRoute.bind(this));
                 },
                 scripts: [],
                 styles: []
@@ -325,6 +327,10 @@ export class Router {
             if (newRoute.load && typeof newRoute.load === 'function') {
                 newRoute.load();
             }
+            if(newRoute.useLayout){
+                new Sidebar();
+            }
+
         } else {
             console.log('No route found');
 

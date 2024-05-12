@@ -9,16 +9,15 @@
                 <option value="1">Доход</option>
                 <option value="2">Расход</option>
             </select>
-            <select placeholder="Категория..." id="input-income-category" class="category-select p-2 ps-3 mb-2" aria-label="Default select example">
-                <option value="1">Еда</option>
+            <select id="selectIncomeCategory" placeholder="Категория..." id="input-income-category" class="category-select p-2 ps-3 mb-2" aria-label="Default select example">
+                <option id="input-income-option" value="1">Еда</option>
                 <option value="2">Жильё</option>
             </select>
             <input type="number" class="sum p-2 ps-3 mb-2" placeholder="Сумма в $..." id="input-income-sum">
             <input type="date" class="sum p-2 ps-3 mb-2" placeholder="Дата..." id="input-income-date">
             <input type="text" class="sum p-2 ps-3 mb-3" placeholder="Комментарий..." id="input-income-message">
-            фя
         </div>
-        <button type="button" class="btn btn-success">Сохранить</button>
-        <button type="button" class="btn btn-danger">Отмена</button>
+        <button type="button" class="btn btn-success" id="createIncomeButton">Сохранить</button>
+        <button type="button" class="btn btn-danger" id="cancelIncomeButton">Отмена</button>
     </section>
 </div>

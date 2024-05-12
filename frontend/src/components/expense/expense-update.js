@@ -1,20 +1,20 @@
 import {HttpUtils} from "../../utils/http-utils";
-import {UrlUtils} from "../../utils/url-utils.js";
 import {ExpenseService} from "../../services/expense-service";
+import {UrlUtils} from "../../utils/url-utils";
 
 export class ExpenseUpdate {
 
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
-
         const id = UrlUtils.getUrlParam('id');
         if (!id) {
             return this.openNewRoute('/');
         }
+        this.categoryExpense = null;
+
 
         document.getElementById('updateButton').addEventListener('click', this.updateOrder.bind(this));
         document.getElementById('cancelButton').addEventListener('click', this.updateOrder.bind(this));
-
         this.findElements();
 
         this.init(id).then();
@@ -25,25 +25,25 @@ export class ExpenseUpdate {
     }
 
     async init(id) {
-        const expenseData = await this.getExpense(id);
-        if (expenseData) {
-            if (expenseData.title) {
-                await this.getExpense(expenseData.title, expenseData.title.id);
-            }
-        }
+        this.categoryExpense = await this.getExpense(id);
     }
 
-    async getExpense(title, id) {
+    async getExpense(id) {
         const result = await HttpUtils.request('/categories/expense/' + id);
+        console.log(result)
+        this.expenseInputElement.setAttribute('value', result.response.title)
+
         if (result.redirect) {
             return this.openNewRoute(result.redirect);
         }
 
         if (result.error || !result.response || (result.response && result.response.error)) {
-            return alert('Возникла ошибка при запросе заказа. Обратитесь в поддержку');
+            return alert('Возникла ошибка при запросе категории. Обратитесь в поддержку');
         }
 
-        this.orderOriginalData = result.response;
+        this.categoryExpense = result.response;
+        console.log(this.categoryExpense.title)
+
         return result.response;
     }
 
@@ -52,16 +52,16 @@ export class ExpenseUpdate {
 
             const changedData = {};
 
-            if (this.expenseInputElement.value !== this.orderOriginalData.title) {
-                changedData.description = this.expenseInputElement.value;
+            if (this.expenseInputElement.value !== this.categoryExpense.title) {
+                changedData.title = this.expenseInputElement.value;
             }
 
 
-                const response = await ExpenseService.updateExpense(this.orderOriginalData.title, changedData);
+                const response = await ExpenseService.updateExpense(this.categoryExpense.id, changedData);
 
                 if (response.error) {
                     alert(response.error);
-                    return response.redirect ? this.openNewRoute(response.redirect) : null;
+                    // return response.redirect ? this.openNewRoute(response.redirect) : null;
                 }
 
                 return this.openNewRoute('/expense')

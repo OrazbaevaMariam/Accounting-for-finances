@@ -13,14 +13,14 @@ export class IncomeCreate {
     }
 
     findElements() {
-        this.expenseInputElement = document.getElementById('incomeInput');
+        this.expenseInputElement = document.getElementById('create-input');
     };
 
     async saveCategory(e) {
         e.preventDefault();
 
         const createData = {
-            expense: this.expenseInputElement.value,
+            title: this.expenseInputElement.value,
         };
 
         const response = await IncomeService.createIncome(createData);

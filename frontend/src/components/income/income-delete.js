@@ -9,6 +9,8 @@ export class IncomeDelete {
         if (!id) {
             return this.openNewRoute('/');
         }
+        document.getElementById('incomeCategoryDelete').addEventListener('click', this.deleteIncome.bind(this));
+
 
         this.deleteIncome(id).then();
     }
@@ -18,7 +20,7 @@ export class IncomeDelete {
 
         if (response.error){
             alert(response.error);
-            return response.redirect ? this.openNewRoute(response.redirect) : null;
+            // return response.redirect ? this.openNewRoute(response.redirect) : null;
         }
 
         return this.openNewRoute('/income');

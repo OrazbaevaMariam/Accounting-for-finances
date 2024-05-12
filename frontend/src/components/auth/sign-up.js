@@ -42,19 +42,17 @@ export class SignUp {
         const errorElement = document.getElementById('common-error-signup');
 
         if (ValidationUtils.validateForm(this.validations, errorElement)) {
-            const signupResult = AuthService.signUp({
+            const signupResult = await AuthService.signUp({
                 name: this.nameElement.value.split(' ')[0],
                 lastName: this.nameElement.value.split(' ')[1],
                 email: this.emailElement.value,
                 password: this.passwordElement.value,
-                passwordRepeat: this.passwordRepeatElement,
+                passwordRepeat: this.passwordRepeatElement.value,
             });
             if (signupResult) {
-                AuthUtils.setAuthInfo(signupResult.accessToken, signupResult.refreshToken, {
-                    id: signupResult.id,
-                    name: signupResult.name,
-                    lastName: signupResult.lastName,
-
+                AuthUtils.setAuthInfo(signupResult.tokens.accessToken, signupResult.tokens.refreshToken, {
+                    id: signupResult.user.id,
+                    name: signupResult.user.name + ' ' + signupResult.user.lastName,
                 });
                 return this.openNewRoute('/');
             }
