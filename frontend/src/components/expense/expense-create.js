@@ -5,8 +5,8 @@ export class ExpenseCreate {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
 
-        document.getElementById('saveButton').addEventListener('click', this.saveCategory.bind(this));
-        document.getElementById('cancelButton').addEventListener('click', this.Category.bind(this));
+        document.getElementById('saveExpenseButton').addEventListener('click', this.saveCategory.bind(this));
+        document.getElementById('cancelButton').addEventListener('click', this.cancelCategory.bind(this));
 
         this.findElements();
 
@@ -20,7 +20,7 @@ export class ExpenseCreate {
         e.preventDefault();
 
         const createData = {
-            expense: this.expenseInputElement.value,
+            title: this.expenseInputElement.value,
         };
 
         const response = await ExpenseService.createExpense(createData);
@@ -37,6 +37,8 @@ export class ExpenseCreate {
 
         return this.openNewRoute('/expense');
     };
+
+
 
 
 }

@@ -1,5 +1,7 @@
 import {HttpUtils} from "../../utils/http-utils";
 import {IncomeService} from "../../services/income-service";
+import {ValidationUtils} from "../../utils/validation-utils";
+import {OperationsService} from "../../services/operations-service";
 
 export class OperationsIncomeCreate {
 
@@ -12,49 +14,40 @@ export class OperationsIncomeCreate {
 
         this.findElements();
 
-        this.init().then();
-
+        this.init();
+        //
         // this.validations = [
         //     {element: this.incomeCreateInputSelectElement = document.getElementById('input-income-type')},
-        //     {element: this.incomeCreateISelectCategoryElement = document.getElementById('input-income-category')},
+        //     {element: this.incomeCreateSelectCategoryElement = document.getElementById('input-income-category')},
         //     {element: this.incomeCreateInputAmountElement = document.getElementById('input-income-sum')},
         //     {element: this.incomeCreateInputDateElement = document.getElementById('input-income-date')},
         //     {element: this.incomeCreateInputCommentElement = document.getElementById('input-income-message')},
         // ]
 
-        // this.getFreelancers().then();
     }
 
     findElements() {
         this.incomeCreateInputSelectElement = document.getElementById('input-income-type');
-        this.incomeCreateISelectCategoryElement = document.getElementById('input-income-category');
-        this.incomeCreateISelectIncomeCategoryElement = document.getElementById('selectIncomeCategory');
-        this.incomeCreateISelectOptionElement = document.getElementById('input-income-option');
+        this.incomeCreateSelectCategoryElement = document.getElementById('input-income-category');
+        // this.incomeCreateISelectIncomeCategoryElement = document.getElementById('selectIncomeCategory');
+        // this.incomeCreateSelectOptionElement = document.getElementById('input-income-option');
         this.incomeCreateInputAmountElement = document.getElementById('input-income-sum');
         this.incomeCreateInputDateElement = document.getElementById('input-income-date');
         this.incomeCreateInputCommentElement = document.getElementById('input-income-message');
     };
     async init() {
-        this.incomeCreateISelectCategoryElement = await this.getIncomes();
+        this.incomeCreateSelectCategoryElement = await this.getIncomes();
     }
     async getIncomes() {
-        const result = await HttpUtils.request('/categories/income');
-        // console.log(result.response)
+        const result = await IncomeService.getIncomes();
+        console.log(result)
 
-        if (result.redirect) {
-            return this.openNewRoute(result.redirect);
-        }
-
-        if (result.error || !result.response || (result.response && result.response.error)) {
-            return alert('Возникла ошибка при запросе категории. Обратитесь в поддержку');
-        }
-
-        this.categoryIncome = result.response;
+        this.categoryIncome = result.incomes;
         for (let value of Object.values(this.categoryIncome)) {
-            this.incomeCreateISelectOptionElement = document.createElement('option');
-            this.incomeCreateISelectOptionElement.value = value.id;
-            this.incomeCreateISelectOptionElement.innerText = value.title;
-            this.incomeCreateISelectIncomeCategoryElement.appendChild(this.incomeCreateISelectOptionElement);
+            this.incomeCreateSelectOptionElement = document.createElement('option');
+            this.incomeCreateSelectOptionElement.value = value.id;
+            this.incomeCreateSelectOptionElement.innerText = value.title;
+            this.incomeCreateSelectCategoryElement.appendChild(this.incomeCreateSelectOptionElement);
         }
 
         return result.response;
@@ -67,42 +60,43 @@ export class OperationsIncomeCreate {
         const createData = {
             type: this.incomeCreateInputSelectElement.value,
             amount: this.incomeCreateInputAmountElement.value,
-            date: this.incomeCreateInputDateElement.toISOString(),
+            date: this.incomeCreateInputDateElement.value,
             comment: this.incomeCreateInputCommentElement.value,
-            category_id: this.incomeCreateISelectOptionElement.value
+            category_id: this.incomeCreateSelectCategoryElement.value
         };
 
-        const response = await IncomeService.createIncome(createData);
+        const response = await OperationsService.createOperation(createData);
+        console.log(response)
 
         if (response.error) {
             alert(response.error);
             return response.redirect ? this.openNewRoute(response.redirect) : null;
         }
 
-        return this.openNewRoute('/income');
+        return this.openNewRoute('/operations');
 
-        // this.incomeCreateISelectCategoryElement.value = ;
+        // this.incomeCreateSelectCategoryElement.value = ;
 
-        if (ValidationUtils.validateForm(this.validations)) {
-            const createData = {
-                type: this.incomeCreateInputSelectElement.value,
-                category: this.incomeCreateISelectCategoryElement.value,
-                sum: this.incomeCreateInputAmountElement.value,
-                date: this.incomeCreateInputDateElement.toISOString(),
-            };
-
-            if (this.incomeCreateInputCommentElement) {
-                createData.message = this.incomeCreateInputCommentElement.value;
-            }
-            const response = await IncomeService.createIncome(createData);
-
-            if (response.error) {
-                alert(response.error);
-                return response.redirect ? this.openNewRoute(response.redirect) : null;
-            }
-
-            return this.openNewRoute('/operations');
-        }
+        // if (ValidationUtils.validateForm(this.validations)) {
+        //     const createData = {
+        //         type: this.incomeCreateInputSelectElement.value,
+        //         category: this.incomeCreateSelectCategoryElement.value,
+        //         sum: this.incomeCreateInputAmountElement.value,
+        //         date: this.incomeCreateInputDateElement.toISOString(),
+        //     };
+        //
+        //     if (this.incomeCreateInputCommentElement) {
+        //         createData.message = this.incomeCreateInputCommentElement.value;
+        //     }
+        //     const response = await IncomeService.createIncome(createData);
+        //
+        //     if (response.error) {
+        //         alert(response.error);
+        //         return response.redirect ? this.openNewRoute(response.redirect) : null;
+        //     }
+        //
+        //     return this.openNewRoute('/operations');
+        // }
     }
     async cancelIncome(e) {
         e.preventDefault();

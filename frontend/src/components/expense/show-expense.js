@@ -1,9 +1,13 @@
 import {HttpUtils} from "../../utils/http-utils";
+import {ExpenseService} from "../../services/expense-service";
+import {UrlUtils} from "../../utils/url-utils";
 
 export class ShowExpense {
 
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
+        const id = UrlUtils.getUrlParam('id');
+
         this.categoriesExpense = null;
         this.cards = document.getElementById('cards');
 
@@ -11,7 +15,11 @@ export class ShowExpense {
         this.expenseCategoryEdit = document.getElementById('expenseCategoryEdit');
         this.expenseCategoryDelete = document.getElementById('expenseCategoryDelete');
 
+        document.getElementById('deleteButton').addEventListener('click', this.deleteCategory.bind(this));
+
+
         this.init();
+        this.deleteCategory(id).then();
 
     }
 
@@ -33,32 +41,6 @@ export class ShowExpense {
     }
 
     showCategoryExpense() {
-
-        this.cards.innerHTML = '';
-        const addIncomeElement = document.createElement('div');
-        addIncomeElement.classList.add('col-4', 'border', 'rounded-4', 'card', 'gy-4', 'me-4');
-
-        const addLinkIncomeElement = document.createElement('a');
-        addLinkIncomeElement.setAttribute("href", "/income/create");
-        addLinkIncomeElement.classList.add('income-card-add',  'align-middle', 'text-center', 'text-secondary', 'm-0');
-
-        const addSvgIncomeElement = document.createElement('svg');
-        addSvgIncomeElement.setAttribute("href", "/income/create");
-        addSvgIncomeElement.classList.add('plus');
-        addSvgIncomeElement.setAttribute("width", "15");
-        addSvgIncomeElement.setAttribute("height", "15");
-        addSvgIncomeElement.setAttribute("viewBox", "0 0 15 15");
-        addSvgIncomeElement.setAttribute("fill", "none");
-        addSvgIncomeElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-
-        const addPathIncomeElement = document.createElement('path');
-        addPathIncomeElement.setAttribute("d", "M14.5469 6.08984V9.05664H0.902344V6.08984H14.5469ZM9.32422 0.511719V15.0039H6.13867V0.511719H9.32422Z");
-        addPathIncomeElement.setAttribute("fill", "#CED4DA");
-
-        addSvgIncomeElement.appendChild(addPathIncomeElement);
-        addLinkIncomeElement.appendChild(addSvgIncomeElement);
-        addIncomeElement.appendChild(addLinkIncomeElement)
-
         this.categoriesExpense.response.forEach(category => {
             console.log(category)
 
@@ -81,8 +63,8 @@ export class ShowExpense {
             buttonElement.setAttribute("type", "button");
             buttonElement.classList.add('btn', 'btn-danger', 'me-1');
             buttonElement.setAttribute("id", "expenseCategoryDelete");
-            // buttonElement.setAttribute("data-bs-toggle", "modal");
-            buttonElement.setAttribute("data-bs-target", "#deleteIncome");
+            buttonElement.setAttribute("data-bs-toggle", "modal");
+            buttonElement.setAttribute("data-bs-target", "#deleteExpense");
             buttonElement.innerText = 'Удалить';
 
             const incomeCard = document.createElement('div');
@@ -90,16 +72,29 @@ export class ShowExpense {
 
             const card = document.createElement('div');
             card.classList.add('col-4', 'border', 'rounded-4', 'card', 'me-4', 'gy-4');
+            card.setAttribute('id', category.id)
 
             incomeCard.appendChild(titleElement);
             incomeCard.appendChild(linkElement);
             incomeCard.appendChild(buttonElement);
             card.appendChild(incomeCard)
-            this.cards.appendChild(card)
+            this.cards.prepend(card)
 
         });
-        this.cards.appendChild(addIncomeElement);
+        // this.cards.appendChild(addIncomeElement);
 
+    }
+
+  async deleteCategory(id){
+        const response = await ExpenseService.deleteExpense(id);
+        console.log(response)
+
+        if (response.error){
+            alert(response.error);
+            // return response.redirect ? this.openNewRoute(response.redirect) : null;
+        }
+
+        // return this.openNewRoute('/expense');
     }
 
 }

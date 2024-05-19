@@ -4,8 +4,10 @@
         <div class="content-header">
             <h1 class="text-primary-emphasis mb-5">Доходы и расходы</h1>
         </div>
-        <a href="/operations/create/income" type="button" class="btn btn-success me-1" id="openIncomeCreateButton">Создать доход</a>
-        <a href="/operations/create/expense" type="button" class="btn btn-danger" id="openExpenseCreateButton">Создать расход</a>
+        <a href="/operations/create/income" type="button" class="btn btn-success me-1" id="openIncomeCreateButton">Создать
+            доход</a>
+        <a href="/operations/create/expense" type="button" class="btn btn-danger" id="openExpenseCreateButton">Создать
+            расход</a>
         <div class="filter gx-0 my-5">
             <!--            фильтрацию делать через jquery или методами js-->
             <button type="button" class="btn btn-secondary active">Сегодня</button>
@@ -19,7 +21,7 @@
             <span>по</span>
             <input type="date" class=" date-end ms-1" placeholder="Дата" name="date-end" id="date-end">
         </div>
-        <table class="table">
+        <table class="table text-center">
             <thead>
             <tr>
                 <th scope="col">№ операции</th>
@@ -32,35 +34,20 @@
                 <th scope="col"></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="table-body">
             <tr>
                 <th scope="row">1</th>
                 <td class="text-success">доход</td>
                 <td>зарплата</td>
-                <td>@500$</td>
+                <td>500$</td>
                 <td>11.09.2022</td>
                 <td></td>
                 <td><a href="#" type="button" class="" data-bs-toggle="modal" data-bs-target="#deleteOperation"><i
                         class="bi bi-trash"></i></a>
-                    <!-- Modal --></td>
-
-                <div class="modal fade" id="deleteOperation" tabindex="-1" aria-labelledby="deleteOperationLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <h5 class="modal-body p-4 mb-0 text-primary-emphasis">
-                                Вы действительно хотите удалить операцию?
-                            </h5>
-                            <div class="modal-footer text-center border-0 pb-4 pt-0 mx-auto">
-                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Да, удалить
-                                </button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </td>
                 <td><a href="/operations/edit"><i class="bi bi-pencil"></i></a></td>
+
+
             </tr>
             <tr>
                 <th scope="row">2</th>
@@ -76,7 +63,22 @@
             </tr>
             </tbody>
         </table>
-
+        <div class="modal fade" id="deleteOperation" tabindex="-1" aria-labelledby="deleteOperationLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <h5 class="modal-body p-4 mb-0 text-primary-emphasis">
+                        Вы действительно хотите удалить операцию?
+                    </h5>
+                    <div class="modal-footer text-center border-0 pb-4 pt-0 mx-auto">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Да, удалить
+                        </button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </div>
 

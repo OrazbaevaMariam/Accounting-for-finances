@@ -10,7 +10,7 @@ export class IncomeService {
 
         const result = await HttpUtils.request('/categories/income');
 
-        if (result.redirect || result.error || !result.response || (result.response && (result.response.error || !result.response.orders))) {
+        if (result.redirect || result.error || !result.response || (result.response && (result.response.error))) {
             returnObject.error = 'Возникла ошибка при запросе доходов. Обратитесь в поддержку';
             if (result.redirect) {
                 returnObject.redirect = result.redirect;
@@ -18,7 +18,7 @@ export class IncomeService {
             return returnObject;
         }
 
-        returnObject.orders = result.response.orders;
+        returnObject.incomes = result.response;
         return returnObject;
     }
 
@@ -53,7 +53,7 @@ export class IncomeService {
         };
 
         const result = await HttpUtils.request('/categories/income', 'POST', true, data);
-        if (result.redirect || result.error || !result.response || (result.response && result.response.error)) {
+        if (result.redirect || result.error || !result.response) {
             returnObject.error = 'Возникла ошибка при создании дохода. Обратитесь в поддержку';
             if (result.redirect) {
                 returnObject.redirect = result.redirect;

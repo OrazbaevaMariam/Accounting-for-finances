@@ -5,33 +5,6 @@
             <h1 class="text-primary-emphasis mb-4">Расходы</h1>
         </div>
         <div class="row d-flex flex-wrap gx-0 " id="cards">
-            <div class="col-4 border rounded-4 card me-4 gy-4">
-                <div class="expense-card p-3">
-                    <h3 class="expense-name text-primary-emphasis" id="expenseCategoryTitle">
-                        Еда
-                    </h3>
-                    <a href="/expense/update" type="button" class="btn btn-primary me-1" id="expenseCategoryEdit">Редактировать</a>
-                    <a href="#" type="button" class="btn btn-danger" data-bs-toggle="modal" id="expenseCategoryDelete" data-bs-target="#deleteExpense">Удалить</a>
-                    <!-- Modal -->
-                    <div class="modal fade" id="deleteExpense" tabindex="-1" aria-labelledby="deleteExpenseLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <h5 class="modal-body p-4 mb-0 text-primary-emphasis">
-                                    Вы действительно хотите удалить категорию? Связанные доходы будут удалены навсегда.
-                                </h5>
-                                <div class="modal-footer text-center border-0 pb-4 pt-0 mx-auto">
-                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Да, удалить
-                                    </button>
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
 
             <div class="col-4 border rounded-4 card gy-4 me-4">
                 <a href="/expense/create" class="income-card-add align-middle text-center text-secondary m-0" id="expense-add">
@@ -44,4 +17,21 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="deleteExpense" tabindex="-1" aria-labelledby="deleteExpenseLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <h5 class="modal-body p-4 mb-0 text-primary-emphasis">
+                    Вы действительно хотите удалить категорию? Связанные доходы будут удалены навсегда.
+                </h5>
+                <div class="modal-footer text-center border-0 pb-4 pt-0 mx-auto">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="deleteButton">Да, удалить
+                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

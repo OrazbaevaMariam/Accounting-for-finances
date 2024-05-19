@@ -8,9 +8,9 @@ export class ExpenseService {
             expenses: null
         };
 
-        const result = await HttpUtils.request('/expense');
+        const result = await HttpUtils.request('/categories/expense');
 
-        if (result.redirect || result.error || !result.response || (result.response && (result.response.error || !result.response.expenses))) {
+        if (result.redirect || result.error || !result.response || (result.response && (result.response.error))) {
             returnObject.error = 'Возникла ошибка при запросе расходов. Обратитесь в поддержку';
             if (result.redirect) {
                 returnObject.redirect = result.redirect;
@@ -18,7 +18,7 @@ export class ExpenseService {
             return returnObject
         }
 
-        returnObject.expenses = result.response.expenses;
+        returnObject.expenses = result.response;
         return returnObject;
     }
 

@@ -1,5 +1,6 @@
 import {ValidationUtils} from "../../utils/validation-utils";
-import {IncomeService} from "../../services/income-service";
+import {ExpenseService} from "../../services/expense-service";
+import {OperationsService} from "../../services/operations-service";
 
 export class OperationsExpenseCreate {
 
@@ -8,41 +9,100 @@ export class OperationsExpenseCreate {
 
         // document.getElementById('createExpenseButton').addEventListener('click', this.saveOrder.bind(this));
         //
+        document.getElementById('createExpenseButton').addEventListener('click', this.saveExpense.bind(this));
+        document.getElementById('cancelExpenseButton').addEventListener('click', this.cancelExpense.bind(this));
+        this.categoryExpense = null;
+
+        this.findElements();
+        this.init();
+
         // this.validations = [
-        //     { element :this.incomeCreateInputSelectElement = document.getElementById('input-income-type')},
-        //     { element :this.incomeCreateISelectCategoryElement = document.getElementById('input-income-category')},
-        //     { element :this.incomeCreateInputAmountElement = document.getElementById('input-income-sum')},
-        //     { element :this.incomeCreateInputDateElement = document.getElementById('input-income-date')},
-        //     { element :this.incomeCreateInputCommentElement = document.getElementById('input-income-message')},
+        //     { element :this.expenseCreateInputSelectElement = document.getElementById('input-expense-type')},
+        //     { element :this.expenseCreateISelectCategoryElement = document.getElementById('input-expense-category')},
+        //     { element :this.expenseCreateInputAmountElement = document.getElementById('input-expense-sum')},
+        //     { element :this.expenseCreateInputDateElement = document.getElementById('input-expense-date')},
+        //     { element :this.expenseCreateInputCommentElement = document.getElementById('input-expense-message')},
         // ]
 
-        // this.getFreelancers().then();
+    }
+    findElements() {
+        this.expenseCreateInputSelectElement = document.getElementById('input-expense-type');
+        // this.expenseCreateSelectCategoryElement = document.getElementById('input-expense-category');
+        this.expenseCreateSelectIncomeCategoryElement = document.getElementById('input-expense-category');
+        // this.expenseCreateISelectOptionElement = document.getElementById('input-expense-option');
+        this.expenseCreateInputAmountElement = document.getElementById('input-expense-sum');
+        this.expenseCreateInputDateElement = document.getElementById('input-expense-date');
+        this.expenseCreateInputCommentElement = document.getElementById('input-expense-message');
+    };
+    async init() {
+        this.expenseCreateSelectIncomeCategoryElement = await this.getExpenses();
+        // this.expenseCreateSelectCategoryElement = await this.getExpenses();
     }
 
-    // async saveOrder(e) {
-    //     e.preventDefault();
-    //
-    //     if (ValidationUtils.validateForm(this.validations)) {
-    //         const createData = {
-    //             type: this.incomeCreateInputSelectElement.value,
-    //             category: this.incomeCreateISelectCategoryElement.value,
-    //             sum: this.incomeCreateInputAmountElement.value,
-    //             date: this.incomeCreateInputDateElement.toISOString(),
-    //     };
-    //
-    //         if (this.incomeCreateInputCommentElement) {
-    //             createData.message = this.incomeCreateInputCommentElement.value;
-    //         }
-    //         const response = await IncomeService.createIncome(createData);
-    //
-    //         if (response.error){
-    //             alert(response.error);
-    //             return response.redirect ? this.openNewRoute(response.redirect) : null;
-    //         }
-    //
-    //         return this.openNewRoute('/operations');
-    //     }
-    // }
+    async getExpenses() {
+        const result = await OperationsService.getOperations();
+        this.categoryExpense = result.expenses;
+        for (let value of Object.values(this.categoryExpense)) {
+            this.expenseCreateSelectOptionElement = document.createElement('option');
+            this.expenseCreateSelectOptionElement.value = value.id;
+            this.expenseCreateSelectOptionElement.innerText = value.title;
+            this.expenseCreateSelectIncomeCategoryElement.appendChild(this.expenseCreateSelectOptionElement);
+        }
+        // console.log(this.expenseCreateSelectIncomeCategoryElement.value)
+
+        return result.response;
+
+
+    }
+    async saveExpense(e) {
+        e.preventDefault();
+
+        const createData = {
+            type: this.expenseCreateInputSelectElement.value,
+            amount: this.expenseCreateInputAmountElement.value,
+            date: this.expenseCreateInputDateElement.value,
+            comment: this.expenseCreateInputCommentElement.value,
+            category_id: this.expenseCreateSelectIncomeCategoryElement.value,
+        };
+
+        const response = await OperationsService.createOperation(createData);
+        console.log(response)
+
+        if (response.error) {
+            alert(response.error);
+            return response.redirect ? this.openNewRoute(response.redirect) : null;
+        }
+
+        return this.openNewRoute('/operations');
+
+        // this.incomeCreateISelectCategoryElement.value = ;
+
+        // if (ValidationUtils.validateForm(this.validations)) {
+        //     const createData = {
+        //         type: this.expenseCreateInputSelectElement.value,
+        //         category: this.expenseCreateISelectCategoryElement.value,
+        //         sum: this.expenseCreateInputAmountElement.value,
+        //         date: this.expenseCreateInputDateElement.toISOString(),
+        //     };
+        //
+        //     if (this.expenseCreateInputCommentElement) {
+        //         createData.message = this.expenseCreateInputCommentElement.value;
+        //     }
+        //     const response = await ExpenseService.createExpense(createData);
+        //
+        //     if (response.error) {
+        //         alert(response.error);
+        //         return response.redirect ? this.openNewRoute(response.redirect) : null;
+        //     }
+        //
+        //     return this.openNewRoute('/operations');
+        // }
+    }
+    async cancelExpense(e) {
+        e.preventDefault();
+
+        return this.openNewRoute('/operations');
+    };
 
 
 }

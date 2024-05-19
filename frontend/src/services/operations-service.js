@@ -1,6 +1,25 @@
 import {HttpUtils} from "../utils/http-utils";
 
 export class OperationsService {
+    static async getOperations() {
+        const returnObject = {
+            error: false,
+            redirect: null,
+            incomes: null
+        };
+        const result = await HttpUtils.request('/operations');
+
+        if (result.redirect || result.error || !result.response || (result.response && (result.response.error))) {
+            returnObject.error = 'Возникла ошибка при запросе операций. Обратитесь в поддержку';
+            if (result.redirect) {
+                returnObject.redirect = result.redirect;
+            }
+            return returnObject;
+        }
+
+        returnObject.orders = result.response.orders;
+        return returnObject;
+    }
     static async getOperationsFilter() {
         const returnObject = {
             error: false,
@@ -10,7 +29,7 @@ export class OperationsService {
 //доработать все
         const result = await HttpUtils.request('/operations');
 
-        if (result.redirect || result.error || !result.response || (result.response && (result.response.error || !result.response.orders))) {
+        if (result.redirect || result.error || !result.response || (result.response && (result.response.error))) {
             returnObject.error = 'Возникла ошибка при запросе операций. Обратитесь в поддержку';
             if (result.redirect) {
                 returnObject.redirect = result.redirect;

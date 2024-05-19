@@ -17,6 +17,8 @@ import {ExpenseDelete} from "./src/components/expense/expense-delete";
 import {IncomeDelete} from "./src/components/income/income-delete";
 import {Sidebar} from "./src/components/sidebar";
 import {OperationsIncomeCreate} from "./src/components/operations/operations-income-create";
+import {OperationsService} from "./src/services/operations-service";
+import {OperationsDelete} from "./src/components/operations/operations-delete";
 
 export class Router {
     constructor() {
@@ -209,6 +211,13 @@ export class Router {
                 },
                 scripts: [],
                 styles: []
+            },
+            {
+                route: '/operations/delete',
+                load: () => {
+                    new OperationsDelete(this.openNewRoute.bind(this));
+                },
+
             },
             // {
             //     route: '/orders/delete',
