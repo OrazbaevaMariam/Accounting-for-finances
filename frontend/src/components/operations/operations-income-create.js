@@ -36,7 +36,7 @@ export class OperationsIncomeCreate {
         this.incomeCreateInputCommentElement = document.getElementById('input-income-message');
     };
     async init() {
-        this.incomeCreateSelectCategoryElement = await this.getIncomes();
+        await this.getIncomes();
     }
     async getIncomes() {
         const result = await IncomeService.getIncomes();
@@ -50,7 +50,6 @@ export class OperationsIncomeCreate {
             this.incomeCreateSelectCategoryElement.appendChild(this.incomeCreateSelectOptionElement);
         }
 
-        return result.response;
     }
 
 
@@ -58,11 +57,11 @@ export class OperationsIncomeCreate {
         e.preventDefault();
 
         const createData = {
-            type: this.incomeCreateInputSelectElement.value,
+            type: "income",
             amount: this.incomeCreateInputAmountElement.value,
             date: this.incomeCreateInputDateElement.value,
             comment: this.incomeCreateInputCommentElement.value,
-            category_id: this.incomeCreateSelectCategoryElement.value
+            category_id: Number(this.incomeCreateSelectCategoryElement.value)
         };
 
         const response = await OperationsService.createOperation(createData);

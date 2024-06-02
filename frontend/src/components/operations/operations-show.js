@@ -1,12 +1,23 @@
 import {HttpUtils} from "../../utils/http-utils";
+import {IncomeService} from "../../services/income-service";
+import {OperationsService} from "../../services/operations-service";
 
 export class OperationsList {
+    currentIdDelete = null;
+    // currentIdEdit = null;
+
 
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
         this.operations = null;
         this.tableBody = document.getElementById('table-body');
+
+        document.getElementById(this.currentIdDelete).addEventListener('click', this.deleteOperation.bind(this));
+        // document.getElementById(this.currentIdEdit).addEventListener('click', this.editOperation.bind(this));
+
         this.init();
+        this.deleteOperation().then();
+
 
     }
 
@@ -34,8 +45,8 @@ export class OperationsList {
 
         // console.log(this.tableBody)
 
-        this.operations.response.forEach(function (operation, index) {
-            // console.log(operation)
+        this.operations.response.forEach( (operation, index) => {
+            console.log(operation)
             const table = document.createElement('tr');
 
             const number = document.createElement('th');
@@ -44,19 +55,28 @@ export class OperationsList {
 
             const operationType = document.createElement('td');
             operationType.classList.add('text-success', 'text-center');
-            operationType.innerText = operation.type;
+            // console.log(operation.type)
+            if (operation.type === "income"){
+                // operationType.innerText = operation.type;
+                operationType.innerText = "Доход";
+                operationType.className = "text-success";
+            } else {
+                operationType.innerText = "Расход";
+                operationType.className = "text-danger";
+            }
+
 
             const operationCategory = document.createElement('td');
-            operationType.innerText = operation.category;
+            operationCategory.innerText = operation.category;
 
             const operationAmount = document.createElement('td');
-            operationType.innerText = operation.amount + '$';
+            operationAmount.innerText = operation.amount + '$';
 
             const operationDate = document.createElement('td');
-            operationType.innerText = operation.date;
+            operationDate.innerText = operation.date;
 
             const operationComment = document.createElement('td');
-            operationType.innerText = operation.comment;
+            operationComment.innerText = operation.comment;
 
             const operationDeleteOperation = document.createElement('td');
             const operationDeleteOperationLink = document.createElement('a');
@@ -65,9 +85,16 @@ export class OperationsList {
             operationDeleteOperationLink.setAttribute('data-bs-toggle', 'modal');
             operationDeleteOperationLink.setAttribute('data-bs-target', '#deleteOperation');
             const operationDeleteOperationIcon = document.createElement('i');
-            operationDeleteOperationIcon.classList.add('bi', 'bi-trash');
+            operationDeleteOperationIcon.classList.add('bi', 'bi-trash', 'deleteOperation');
             operationDeleteOperationLink.appendChild(operationDeleteOperationIcon);
             operationDeleteOperation.appendChild(operationDeleteOperationLink);
+            operationDeleteOperation.onclick = () => {
+                this.currentIdDelete = operation.id;
+                operationDeleteOperationLink.setAttribute('id', this.currentIdDelete);
+                console.log(this.currentIdDelete)
+            }
+
+
 
             const operationEditOperation = document.createElement('td');
             const operationEditOperationLink = document.createElement('a');
@@ -76,6 +103,11 @@ export class OperationsList {
             operationEditOperationLinkIcon.classList.add('bi', 'bi-pencil');
             operationEditOperationLink.appendChild(operationEditOperationLinkIcon);
             operationEditOperation.appendChild(operationEditOperationLink);
+            operationEditOperation.onclick = () => {
+                this.currentIdEdit = operation.id;
+                operationEditOperation.setAttribute('id', this.currentIdEdit);
+                console.log(this.currentIdEdit)
+            }
 
             table.appendChild(number);
             table.appendChild(operationType);
@@ -88,47 +120,22 @@ export class OperationsList {
 
             this.tableBody.appendChild(table);
 
-            // const titleElement = document.createElement('h3');
-            // titleElement.className = 'income-name';
-            // titleElement.className = 'text-primary-emphasis';
-            // titleElement.setAttribute("id", "incomeCategoryTitle");
-            // titleElement.innerText = category.title;
-            // // console.log(category.title)
-
-
-            // const linkElement = document.createElement('a');
-            // linkElement.setAttribute("href", "/income/update?id=" + operation.id);
-            // linkElement.setAttribute("type", "button");
-            // linkElement.classList.add('btn', 'btn-primary', 'me-1');
-            // linkElement.setAttribute("id", "incomeCategoryEdit");
-            // linkElement.innerText = 'Редактировать';
-
-
-            // const buttonElement = document.createElement('button');
-            // buttonElement.setAttribute("href", "/income/delete?id=" + operation.id);
-            // buttonElement.setAttribute("type", "button");
-            // buttonElement.classList.add('btn', 'btn-danger', 'me-1');
-            // buttonElement.setAttribute("id", "incomeCategoryDelete");
-            // buttonElement.setAttribute("data-bs-toggle", "modal");
-            // buttonElement.setAttribute("data-bs-target", "#deleteIncome");
-            // buttonElement.innerText = 'Удалить';
-
-            // const incomeCard = document.createElement('div');
-            // incomeCard.classList.add('income-card', 'p-3');
-            //
-            // const card = document.createElement('div');
-            // card.classList.add('col-4', 'border', 'rounded-4', 'card', 'me-4', 'gy-4');
-            //
-            // incomeCard.appendChild(titleElement);
-            // incomeCard.appendChild(linkElement);
-            // incomeCard.appendChild(buttonElement);
-            // card.appendChild(incomeCard);
-            // this.cards.prepend(card)
-
 
         });
-        console.log(this.tableBody);
 
+    }
+    async deleteOperation() {
+
+        const response = await OperationsService.deleteOperation(this.currentIdDelete);
+
+        console.log(response)
+
+        if (response.error){
+            alert(response.error);
+            return response.redirect ? this.openNewRoute(response.redirect) : null;
+        }
+
+        return this.openNewRoute('/operations');
     }
 
 }

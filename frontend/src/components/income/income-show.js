@@ -3,6 +3,8 @@ import {UrlUtils} from "../../utils/url-utils";
 import {IncomeService} from "../../services/income-service";
 
 export class IncomeShow {
+
+    currentId = null;
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
         const id = UrlUtils.getUrlParam('id');
@@ -14,17 +16,18 @@ export class IncomeShow {
         this.incomeCategoryEdit = document.getElementById('incomeCategoryEdit');
         this.incomeCategoryDelete = document.getElementById('incomeCategoryDelete');
         this.cards = document.getElementById('cards');
-        document.getElementById('deleteButton').addEventListener('click', this.deleteCategory.bind(this));
 
         this.init();
-        this.deleteCategory(id).then();
+        document.getElementById('deleteButton').addEventListener('click', this.deleteCategory.bind(this));
+
+        this.deleteCategory().then();
     //
     }
 
     async init() {
         try {
             const result = await HttpUtils.request('/categories/income');
-            console.log(result);
+            // console.log(result);
             if (result) {
                 if (result.error) {
                     throw new Error(result.error);
@@ -69,6 +72,9 @@ export class IncomeShow {
             buttonElement.setAttribute("data-bs-target", "#deleteIncome");
             buttonElement.innerText = 'Удалить';
 
+            buttonElement.onclick = () => {}
+            this.currentId = category.id;
+
             const incomeCard = document.createElement('div');
             incomeCard.classList.add('income-card', 'p-3');
 
@@ -86,16 +92,15 @@ export class IncomeShow {
 
     }
 
-   async deleteCategory(id) {
-        console.log(id);
+   async deleteCategory() {
 
-        const response = await IncomeService.deleteIncome(id);
+        const response = await IncomeService.deleteIncome(this.currentId);
 
         console.log(response)
 
         if (response.error){
             alert(response.error);
-            // return response.redirect ? this.openNewRoute(response.redirect) : null;
+            return response.redirect ? this.openNewRoute(response.redirect) : null;
         }
 
         // return this.openNewRoute('/income');

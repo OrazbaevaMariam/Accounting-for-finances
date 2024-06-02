@@ -17,7 +17,7 @@ export class OperationsExpenseCreate {
         this.init();
 
         // this.validations = [
-        //     { element :this.expenseCreateInputSelectElement = document.getElementById('input-expense-type')},
+//     { element :this.expenseCreateInputSelectElement = document.getElementById('input-expense-type')},
         //     { element :this.expenseCreateISelectCategoryElement = document.getElementById('input-expense-category')},
         //     { element :this.expenseCreateInputAmountElement = document.getElementById('input-expense-sum')},
         //     { element :this.expenseCreateInputDateElement = document.getElementById('input-expense-date')},

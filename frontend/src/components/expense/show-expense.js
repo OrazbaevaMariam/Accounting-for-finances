@@ -3,6 +3,7 @@ import {ExpenseService} from "../../services/expense-service";
 import {UrlUtils} from "../../utils/url-utils";
 
 export class ShowExpense {
+    currentId = null;
 
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
@@ -25,7 +26,7 @@ export class ShowExpense {
 
     async init() {
         try {
-            const result = await HttpUtils.request( '/categories/expense');
+            const result = await HttpUtils.request('/categories/expense');
             console.log(result);
             if (result) {
                 if (result.error) {
@@ -53,7 +54,7 @@ export class ShowExpense {
             const linkElement = document.createElement('a');
             linkElement.setAttribute("href", "/expense/update?id=" + category.id);
             linkElement.setAttribute("type", "button");
-            linkElement.classList.add('btn', 'btn-primary', 'me-1') ;
+            linkElement.classList.add('btn', 'btn-primary', 'me-1');
             linkElement.setAttribute("id", "expenseCategoryEdit");
             linkElement.innerText = 'Редактировать';
 
@@ -67,8 +68,12 @@ export class ShowExpense {
             buttonElement.setAttribute("data-bs-target", "#deleteExpense");
             buttonElement.innerText = 'Удалить';
 
+            buttonElement.onclick = () => {
+                this.currentId = category;
+            }
+
             const incomeCard = document.createElement('div');
-            incomeCard.classList.add('income-card','p-3');
+            incomeCard.classList.add('income-card', 'p-3');
 
             const card = document.createElement('div');
             card.classList.add('col-4', 'border', 'rounded-4', 'card', 'me-4', 'gy-4');
@@ -85,13 +90,13 @@ export class ShowExpense {
 
     }
 
-  async deleteCategory(id){
-        const response = await ExpenseService.deleteExpense(id);
+    async deleteCategory() {
+        const response = await ExpenseService.deleteExpense(this.currentId);
         console.log(response)
 
-        if (response.error){
+        if (response.error) {
             alert(response.error);
-            // return response.redirect ? this.openNewRoute(response.redirect) : null;
+            return response.redirect ? this.openNewRoute(response.redirect) : null;
         }
 
         // return this.openNewRoute('/expense');
