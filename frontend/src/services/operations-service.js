@@ -20,14 +20,15 @@ export class OperationsService {
         returnObject.orders = result.response.orders;
         return returnObject;
     }
-    static async getOperationsFilter() {
+
+    static async getOperationsFilter(interval = null, firstDate = null, secondDate = null, filterType) {
         const returnObject = {
             error: false,
             redirect: null,
-            incomes: null
+            response: null
+
         };
-//доработать все
-        const result = await HttpUtils.request('/operations');
+        const result = await HttpUtils.request('/operations?period=' + interval ? +'&dateFrom=' + firstDate + '&dateTo=' + secondDate : filterType);
 
         if (result.redirect || result.error || !result.response || (result.response && (result.response.error))) {
             returnObject.error = 'Возникла ошибка при запросе операций. Обратитесь в поддержку';
@@ -37,7 +38,7 @@ export class OperationsService {
             return returnObject;
         }
 
-        returnObject.orders = result.response.orders;
+        returnObject.response = result.response;
         return returnObject;
     }
 
@@ -51,7 +52,7 @@ export class OperationsService {
 
         const result = await HttpUtils.request('/operations/' + id);
 
-        if (result.redirect || result.error || !result.response || (result.response && result.response.error )) {
+        if (result.redirect || result.error || !result.response || (result.response && result.response.error)) {
             returnObject.error = 'Возникла ошибка при запросе дохода. Обратитесь в поддержку';
             if (result.redirect) {
                 returnObject.redirect = result.redirect;
@@ -93,7 +94,7 @@ export class OperationsService {
 
         const result = await HttpUtils.request('/operations/' + id, 'PUT', true, data);
         if (result.redirect || result.error || !result.response || (result.response && result.response.error)) {
-            returnObject.error = 'Возникла ошибка при добавлении дохода. Обратитесь в поддержку';
+            returnObject.error = 'Возникла ошибка при редактировании дохода. Обратитесь в поддержку';
             if (result.redirect) {
                 returnObject.redirect = result.redirect;
             }

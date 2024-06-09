@@ -11,13 +11,25 @@ export class OperationsList {
         this.openNewRoute = openNewRoute;
         this.operations = null;
         this.tableBody = document.getElementById('table-body');
+        const operationDeleteButton = document.getElementById('operationDeleteButton');
+        // const todayFilter = document.getElementById('todayFilter');
+        const weekFilter = document.getElementById('weekFilter');
+        const monthFilter = document.getElementById('monthFilter');
+        const yearFilter = document.getElementById('yearFilter');
+        const allDatesFilter = document.getElementById('allDatesFilter');
+        const intervalFilter = document.getElementById('intervalFilter');
+        this.dateStart = document.getElementById('date-start');
+        this.dateEnd = document.getElementById('date-end');
 
-        document.getElementById(this.currentIdDelete).addEventListener('click', this.deleteOperation.bind(this));
+        allDatesFilter.addEventListener('click', () => this.init());
+        weekFilter.addEventListener('click', () => this.weekFilter());
+        intervalFilter.addEventListener('click', () => this.intervalFilter());
+
+        operationDeleteButton.addEventListener('click', () => this.deleteOperation());
+        // operationDeleteButton.addEventListener('click', () => this.editOperation());
         // document.getElementById(this.currentIdEdit).addEventListener('click', this.editOperation.bind(this));
 
         this.init();
-        this.deleteOperation().then();
-
 
     }
 
@@ -105,7 +117,6 @@ export class OperationsList {
             operationEditOperation.appendChild(operationEditOperationLink);
             operationEditOperation.onclick = () => {
                 this.currentIdEdit = operation.id;
-                operationEditOperation.setAttribute('id', this.currentIdEdit);
                 console.log(this.currentIdEdit)
             }
 
@@ -122,6 +133,42 @@ export class OperationsList {
 
 
         });
+
+    }
+
+    async weekFilter() {
+        try {
+            const result = await OperationsService.getOperationsFilter('', this.dateStart, this.dateEnd, 'week');
+            console.log(result);
+            if (result) {
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                this.operations = result;
+                this.showOperations();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    async intervalFilter() {
+        try {
+            const result = await OperationsService.getOperationsFilter('interval', this.dateStart, this.dateEnd, null);
+            console.log(result);
+            if (result) {
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                this.operations = result;
+                this.showOperations();
+            }
+        } catch (error) {
+            console.log(error)
+        }
 
     }
     async deleteOperation() {

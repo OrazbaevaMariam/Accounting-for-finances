@@ -42,13 +42,13 @@ export class OperationsIncomeCreate {
         const result = await IncomeService.getIncomes();
         console.log(result)
 
-        this.categoryIncome = result.incomes;
-        for (let value of Object.values(this.categoryIncome)) {
-            this.incomeCreateSelectOptionElement = document.createElement('option');
-            this.incomeCreateSelectOptionElement.value = value.id;
-            this.incomeCreateSelectOptionElement.innerText = value.title;
-            this.incomeCreateSelectCategoryElement.appendChild(this.incomeCreateSelectOptionElement);
-        }
+            this.categoryIncome = result.incomes;
+            for (let value of Object.values(this.categoryIncome)) {
+                this.incomeCreateSelectOptionElement = document.createElement('option');
+                this.incomeCreateSelectOptionElement.value = value.id;
+                this.incomeCreateSelectOptionElement.innerText = value.title;
+                this.incomeCreateSelectCategoryElement.appendChild(this.incomeCreateSelectOptionElement);
+            }
 
     }
 

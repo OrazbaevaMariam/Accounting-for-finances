@@ -1,0 +1,28 @@
+
+
+
+<div class="updateOperations">
+
+    <section class="content container">
+        <div class="content-header">
+            <h1 class="text-primary-emphasis mb-4">Редактирование дохода/расхода</h1>
+        </div>
+            <div class="update d-flex flex-column">
+                <select class="type-select p-2 ps-3 mb-2 w-75" aria-label="Default select example" id="operation-type">
+                    <option selected>Тип...</option>
+                    <option value="1">Доход</option>
+                    <option value="2">Расход</option>
+                </select>
+                <select class="category-select p-2 ps-3 mb-2 w-75" aria-label="Default select example" id="operation-category">
+<!--                    <option selected>Категория...</option>-->
+<!--                    <option value="1">Еда</option>-->
+<!--                    <option value="2">Жильё</option>-->
+                </select>
+                <input type="number" class="sum p-2 ps-3 mb-2 w-75" placeholder="Сумма в $..." id="operation-sum">
+                <input type="date" class="sum p-2 ps-3 mb-2 w-75" placeholder="Дата..." id="operation-date" >
+                <input type="text" class="sum p-2 ps-3 mb-3 w-75" placeholder="Комментарий..." id="operation-message">
+            </div>
+        <button type="button" class="btn btn-success" id="updateOperationButton">Сохранить</button>
+        <button type="button" class="btn btn-danger" id="cancelOperationButton">Отмена</button>
+    </section>
+</div>

@@ -190,21 +190,21 @@ export class Router {
                 scripts: [],
                 styles: []
             },
+            // {
+            //     route: '/operations/edit/income',
+            //     title: 'Редактирование дохода/расхода',
+            //     filePathTemplate: '/templates/pages/operations/update-operations-income.html',
+            //     useLayout: '/templates/layout.html',
+            //     load: () => {
+            //         new OperationsUpdate(this.openNewRoute.bind(this));
+            //     },
+            //     scripts: [],
+            //     styles: []
+            // },
             {
-                route: '/operations/edit/income',
+                route: '/operations/edit',
                 title: 'Редактирование дохода/расхода',
-                filePathTemplate: '/templates/pages/operations/update-operations-income.html',
-                useLayout: '/templates/layout.html',
-                load: () => {
-                    new OperationsUpdate(this.openNewRoute.bind(this));
-                },
-                scripts: [],
-                styles: []
-            },
-            {
-                route: '/operations/edit/expense',
-                title: 'Редактирование дохода/расхода',
-                filePathTemplate: '/templates/pages/operations/update-operations-expense.html',
+                filePathTemplate: '/templates/pages/operations/update-operation.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new OperationsUpdate(this.openNewRoute.bind(this));

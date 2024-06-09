@@ -17,7 +17,7 @@ export class IncomeUpdate {
         document.getElementById('cancelButton').addEventListener('click', this.updateOrder.bind(this));
         this.findElements();
 
-        this.init(id).then();
+        this.init(id);
     }
 
     findElements() {

@@ -17,7 +17,7 @@ export class OperationsExpenseCreate {
         this.init();
 
         // this.validations = [
-//     { element :this.expenseCreateInputSelectElement = document.getElementById('input-expense-type')},
+        //     { element :this.expenseCreateInputSelectElement = document.getElementById('input-expense-type')},
         //     { element :this.expenseCreateISelectCategoryElement = document.getElementById('input-expense-category')},
         //     { element :this.expenseCreateInputAmountElement = document.getElementById('input-expense-sum')},
         //     { element :this.expenseCreateInputDateElement = document.getElementById('input-expense-date')},
@@ -35,12 +35,12 @@ export class OperationsExpenseCreate {
         this.expenseCreateInputCommentElement = document.getElementById('input-expense-message');
     };
     async init() {
-        this.expenseCreateSelectIncomeCategoryElement = await this.getExpenses();
+        await this.getExpenses();
         // this.expenseCreateSelectCategoryElement = await this.getExpenses();
     }
 
     async getExpenses() {
-        const result = await OperationsService.getOperations();
+        const result = await ExpenseService.getExpenses();
         this.categoryExpense = result.expenses;
         for (let value of Object.values(this.categoryExpense)) {
             this.expenseCreateSelectOptionElement = document.createElement('option');
@@ -58,11 +58,11 @@ export class OperationsExpenseCreate {
         e.preventDefault();
 
         const createData = {
-            type: this.expenseCreateInputSelectElement.value,
+            type: "expense",
             amount: this.expenseCreateInputAmountElement.value,
             date: this.expenseCreateInputDateElement.value,
             comment: this.expenseCreateInputCommentElement.value,
-            category_id: this.expenseCreateSelectIncomeCategoryElement.value,
+            category_id: Number(this.expenseCreateSelectIncomeCategoryElement.value)
         };
 
         const response = await OperationsService.createOperation(createData);
