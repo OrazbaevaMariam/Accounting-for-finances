@@ -23,6 +23,8 @@ export class OperationsList {
 
         allDatesFilter.addEventListener('click', () => this.init());
         weekFilter.addEventListener('click', () => this.weekFilter());
+        monthFilter.addEventListener('click', () => this.monthFilter());
+        yearFilter.addEventListener('click', () => this.yearFilter());
         intervalFilter.addEventListener('click', () => this.intervalFilter());
 
         operationDeleteButton.addEventListener('click', () => this.deleteOperation());
@@ -43,7 +45,6 @@ export class OperationsList {
                 }
 
                 this.operations = result;
-                this.showOperations();
             }
         } catch (error) {
             console.log(error)
@@ -139,6 +140,40 @@ export class OperationsList {
     async weekFilter() {
         try {
             const result = await OperationsService.getOperationsFilter('', this.dateStart, this.dateEnd, 'week');
+            console.log(result);
+            if (result) {
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                this.operations = result;
+                this.showOperations();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+    async monthFilter() {
+        try {
+            const result = await OperationsService.getOperationsFilter('', this.dateStart, this.dateEnd, 'month');
+            console.log(result);
+            if (result) {
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                this.operations = result;
+                this.showOperations();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+    async yearFilter() {
+        try {
+            const result = await OperationsService.getOperationsFilter('', this.dateStart, this.dateEnd, 'year');
             console.log(result);
             if (result) {
                 if (result.error) {

@@ -6,6 +6,8 @@ import {ExpenseService} from "../../services/expense-service";
 
 export class OperationsUpdate {
 
+    type
+
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
         const id = UrlUtils.getUrlParam('id');
@@ -14,6 +16,7 @@ export class OperationsUpdate {
         }
         this.operationData = null;
         this.categoryExpense = null;
+
 
 
         document.getElementById('updateOperationButton').addEventListener('click', this.updateOperation.bind(this));
@@ -38,22 +41,13 @@ export class OperationsUpdate {
 
     async getOperation(id) {
         const result = await HttpUtils.request('/operations/' + id);
-        console.log(result);
-        if (result.response.type === "income"){
+        this.currentOperation = result.response;
+        if (result.response.type === "income") {
             this.OperationType.value = '1';
         } else {
             this.OperationType.value = '2';
         }
-        // this.OperationCategory.setAttribute('value', result.response.category);
-        // this.OperationCategory.value = result.response.category;
-        this.OperationCategorySelectOptionElement = document.createElement('option');
-        this.OperationCategorySelectOptionElement.innerText = result.response.category;
-        this.OperationCategorySelectOptionElement.value = result.response.id;
-        this.OperationCategorySelectOptionElement.setAttribute('value', result.response.category)
-
-        // this.OperationCategory.innerText = result.response.category;
-        this.OperationCategory.appendChild(this.OperationCategorySelectOptionElement);
-        this.OperationCategory.value = result.response.category;
+         this.showCategories();
 
         this.OperationSum.setAttribute('value', result.response.amount)
         this.OperationDate.setAttribute('value', result.response.date)
@@ -69,18 +63,38 @@ export class OperationsUpdate {
         }
 
         this.operationData = result.response;
-        for (let key in this.operationData) {
-            console.log(key)
-            // var obj = data.messages[key];
-            // ...
-        }
 
         return result.response;
     }
 
-    showExpenseCategories(){
+    async showCategories() {
+        if (this.OperationType.value === '1') {
+            const categories = await IncomeService.getIncomes();
+            this.showCurrentCategories(categories.incomes)
+        } else {
+            const categories = await ExpenseService.getExpenses();
+            this.showCurrentCategories(categories.expenses)
+        }
+    }
+
+    async showCurrentCategories(categories){
+        this.OperationCategory.innerHTML = '';
+        categories.forEach(item => {
+            const operationOptionElement = document.createElement('option');
+            operationOptionElement.innerText = item.title;
+            operationOptionElement.value = item.id;
+            operationOptionElement.setAttribute('value', item.id);
+            this.OperationCategory.appendChild(operationOptionElement);
+
+
+        })
+        const currentCategory = categories.find(item => item.title === this.currentOperation.category);
+        if (currentCategory) {
+            this.OperationCategory.value = currentCategory.id;
+        }
 
     }
+
 
 
     async updateOperation(e) {
@@ -88,25 +102,11 @@ export class OperationsUpdate {
 
         const changedData = {};
 
-        if (this.OperationType.value !== this.operationData.type) {
-            changedData.category = this.OperationType.value;
-        }
-
-        if (this.OperationCategorySelectOptionElement.value !== this.operationData.category) {
-            changedData.category = this.OperationCategorySelectOptionElement.value;
-        }
-
-        if (this.OperationSum.value !== this.operationData.amount) {
-            changedData.amount = this.OperationSum.value;
-        }
-
-        if (this.OperationDate.value !== this.operationData.date) {
-            changedData.date = this.OperationDate.value;
-        }
-
-        if (this.OperationMessage.value !== this.operationData.comment) {
-            changedData.comment = this.OperationMessage.value;
-        }
+        changedData.type = this.OperationType.value === '1' ? 'income' : 'expense';
+        changedData.category_id = Number(this.OperationCategory.value);
+        changedData.amount = Number(this.OperationSum.value);
+        changedData.date = this.OperationDate.value;
+        changedData.comment = this.OperationMessage.value;
 
         console.log(this.operationData)
 

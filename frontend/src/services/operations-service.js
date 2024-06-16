@@ -28,7 +28,7 @@ export class OperationsService {
             response: null
 
         };
-        const result = await HttpUtils.request('/operations?period=' + interval ? +'&dateFrom=' + firstDate + '&dateTo=' + secondDate : filterType);
+        const result = await HttpUtils.request('/operations?period=' + (interval ? ('interval&dateFrom=' + firstDate.value + '&dateTo=' + secondDate.value) : filterType));
 
         if (result.redirect || result.error || !result.response || (result.response && (result.response.error))) {
             returnObject.error = 'Возникла ошибка при запросе операций. Обратитесь в поддержку';
