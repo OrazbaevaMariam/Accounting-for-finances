@@ -7,6 +7,8 @@ export class Dashboard {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
         this.categoriesIncome = null;
+        this.operations = null;
+        this.dataIncomes = null;
 
         const weekFilter = document.getElementById('weekFilter');
         const monthFilter = document.getElementById('monthFilter');
@@ -38,25 +40,72 @@ export class Dashboard {
         } catch (error) {
             console.log(error)
         }
+        try {
+            const result = await HttpUtils.request('/categories/expense');
+            if (result) {
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                this.categoriesExpense = result.response;
+                console.log(Object.values(this.categoriesExpense));
+
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        try {
+            const result = await HttpUtils.request('/operations?period=all');
+            if (result) {
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                this.operations = result.response;
+                console.log(Object.values(this.operations));
+
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+        this.dataIncomes = this.categoriesIncome.map(category => {
+            const obj = {...category, amount: 0};
+            this.operations.forEach(income => {
+                if (income.category === category.title){
+                    obj.amount += income.amount
+                }
+            })
+            return obj;
+        })
+        this.dataExpenses = this.categoriesExpense.map(category => {
+            const obj = {...category, amount: 0};
+            this.operations.forEach(income => {
+                if (income.category === category.title){
+                    obj.amount += income.amount
+                }
+            })
+            return obj;
+        })
         await this.getPie();
     }
 
     getPie() {
 
         const dataIncome = {
-            labels: Object.values(this.categoriesIncome),
+            labels: this.dataIncomes.map(item => item.title),
             datasets: [{
                 label: '# of Votes',
-                data: this.categoriesIncome,
+                data: this.dataIncomes.map(item => item.amount),
                 borderWidth: 1
             }]
         };
 
         const dataExpense = {
-            labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+            labels: this.dataExpenses.map(item => item.title),
             datasets: [{
                 label: '# of Votes',
-                data: [1,2,3,4,5],
+                data: this.dataExpenses.map(item => item.amount),
                 borderWidth: 1
             }]
         };
@@ -95,13 +144,18 @@ export class Dashboard {
         //     myChartIncome.clear();
         //     myChartIncome.destroy();
         // };
+        if(myChartIncome) {
+            myChartIncome.destroy();
+        }
 
 
         const myChartExpense = new Chart(
             document.getElementById('myChartExpense'),
             configExpense,
         )
-
+        if(myChartExpense) {
+            myChartExpense.destroy();
+        }
 
     }
     async weekFilter() {

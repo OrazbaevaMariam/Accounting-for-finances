@@ -12,7 +12,7 @@ export class OperationsList {
         this.operations = null;
         this.tableBody = document.getElementById('table-body');
         const operationDeleteButton = document.getElementById('operationDeleteButton');
-        // const todayFilter = document.getElementById('todayFilter');
+        const todayFilter = document.getElementById('todayFilter');
         const weekFilter = document.getElementById('weekFilter');
         const monthFilter = document.getElementById('monthFilter');
         const yearFilter = document.getElementById('yearFilter');
@@ -21,7 +21,8 @@ export class OperationsList {
         this.dateStart = document.getElementById('date-start');
         this.dateEnd = document.getElementById('date-end');
 
-        allDatesFilter.addEventListener('click', () => this.init());
+        allDatesFilter.addEventListener('click', () => this.allDatesFilter());
+        todayFilter.addEventListener('click', () => this.init());
         weekFilter.addEventListener('click', () => this.weekFilter());
         monthFilter.addEventListener('click', () => this.monthFilter());
         yearFilter.addEventListener('click', () => this.yearFilter());
@@ -138,6 +139,12 @@ export class OperationsList {
     }
 
     async weekFilter() {
+        weekFilter.classList.add('active');
+        allDatesFilter.classList.remove('active');
+        monthFilter.classList.remove('active');
+        yearFilter.classList.remove('active');
+        intervalFilter.classList.remove('active');
+        todayFilter.classList.remove('active');
         try {
             const result = await OperationsService.getOperationsFilter('', this.dateStart, this.dateEnd, 'week');
             console.log(result);
@@ -154,7 +161,36 @@ export class OperationsList {
         }
 
     }
+    async allDatesFilter() {
+        allDatesFilter.classList.add('active');
+        monthFilter.classList.remove('active');
+        yearFilter.classList.remove('active');
+        intervalFilter.classList.remove('active');
+        weekFilter.classList.remove('active');
+        todayFilter.classList.remove('active');
+        try {
+            const result = await OperationsService.getOperationsFilter('', this.dateStart, this.dateEnd, 'all');
+            console.log(result);
+            if (result) {
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                this.operations = result;
+                this.showOperations();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
     async monthFilter() {
+        monthFilter.classList.add('active');
+        yearFilter.classList.remove('active');
+        intervalFilter.classList.remove('active');
+        weekFilter.classList.remove('active');
+        todayFilter.classList.remove('active');
+        allDatesFilter.classList.remove('active');
         try {
             const result = await OperationsService.getOperationsFilter('', this.dateStart, this.dateEnd, 'month');
             console.log(result);
@@ -172,6 +208,13 @@ export class OperationsList {
 
     }
     async yearFilter() {
+        yearFilter.classList.add('active');
+        intervalFilter.classList.remove('active');
+        monthFilter.classList.remove('active');
+        weekFilter.classList.remove('active');
+        todayFilter.classList.remove('active');
+        allDatesFilter.classList.remove('active');
+
         try {
             const result = await OperationsService.getOperationsFilter('', this.dateStart, this.dateEnd, 'year');
             console.log(result);
@@ -190,6 +233,13 @@ export class OperationsList {
     }
 
     async intervalFilter() {
+        intervalFilter.classList.add('active');
+        monthFilter.classList.remove('active');
+        weekFilter.classList.remove('active');
+        yearFilter.classList.remove('active');
+        todayFilter.classList.remove('active');
+        allDatesFilter.classList.remove('active');
+
         try {
             const result = await OperationsService.getOperationsFilter('interval', this.dateStart, this.dateEnd, null);
             console.log(result);
