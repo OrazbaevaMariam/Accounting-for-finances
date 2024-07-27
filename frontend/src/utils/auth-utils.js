@@ -17,6 +17,10 @@ export class AuthUtils {
         localStorage.removeItem(this.refreshTokenKey);
         localStorage.removeItem(this.userInfoTokenKey);
     }
+    static removeTokens() {
+        localStorage.removeItem(this.accessTokenKey);
+        localStorage.removeItem(this.refreshTokenKey);
+    }
 
     static getAuthInfo(key = null) {
         if (key && [this.accessTokenKey, this.refreshTokenKey, this.userInfoTokenKey].includes(key)) {
@@ -29,7 +33,29 @@ export class AuthUtils {
             }
         }
     }
+    static async logout() {
+        const refreshToken = localStorage.getItem(this.refreshTokenKey);
+        if (refreshToken) {
+            const response = await fetch(config.host + '/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({refreshToken: refreshToken})
+            });
 
+            if (response && response.status === 200) {
+                const result = await response.json();
+                if (result && !result.error) {
+                    AuthUtils.removeTokens();
+                    localStorage.removeItem(Auth.userInfoTokenKey);
+                    return true;
+                }
+            }
+        }
+
+    }
     static async updateRefreshToken() {
         let result = false;
         const refreshToken = this.getAuthInfo(this.refreshTokenKey);

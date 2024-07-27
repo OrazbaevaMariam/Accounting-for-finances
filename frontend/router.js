@@ -244,6 +244,28 @@ export class Router {
         await this.activateRoute(null, currentRoute);
     }
 
+    async openRoute() {
+
+        const urlRoute = window.location.hash.split('?')[0];
+        if (urlRoute === '#/logout') {
+            await AuthUtils.logout();
+            window.location.href = '#/';
+            return;
+        }
+        const newRoute = this.routes.find(item => {
+            return item.route === urlRoute;
+        });
+
+        if (!newRoute) {
+            window.location.href = '#/';
+            return;
+        }
+
+        newRoute.load();
+
+    }
+
+
     // async clickHandler(e) {
     //     let element = null;
     //     if (e.target.nodeName === 'A') {
