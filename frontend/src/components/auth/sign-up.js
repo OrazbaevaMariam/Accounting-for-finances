@@ -26,7 +26,7 @@ export class SignUp {
         this.validations = [
             {element: this.nameElement, options: {pattern: /^[А-Яа-я]{2,}\s+[А-Яа-я]{2,}\s+[А-Яа-я]{2,}\s*$/}},
             {element: this.emailElement, options: {pattern: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/}},
-            {element: this.passwordElement, options: {pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/}},
+            {element: this.passwordElement, options: {pattern: /^(?=.*\d)([?=.*[A-Z])[0-9a-zA-Z]{8,}$/}},
             {element: this.passwordRepeatElement, options: {compareTo: this.passwordElement.value}},
         ];
     }
